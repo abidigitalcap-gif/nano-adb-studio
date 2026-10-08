@@ -1,0 +1,1812 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nano ADB Pro - Anti-Detect Browser Engine</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+  <div class="app-wrapper">
+    
+    <!-- Left Navigation Sidebar -->
+    <!-- Left Navigation Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-top">
+        <div class="brand-header">
+          <div class="brand-icon">🛡️</div>
+          <div>
+            <div class="brand-title">Nano ADB Pro</div>
+            <div class="brand-subtitle">ANTI-DETECT ENGINE V143</div>
+          </div>
+        </div>
+
+        <nav class="sidebar-nav">
+          <div class="nav-section-title">MAIN DASHBOARD</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-item active" id="navDashboard">
+                <span class="nav-icon">🎛️</span>
+                <span class="nav-label">Dashboard</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" id="navDevicesGallerySidebar">
+                <span class="nav-icon">📱</span>
+                <span class="nav-label">Devices Gallery</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="nav-section-title" style="margin-top: 18px;">CLOUD & ROUTING</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-item" id="navProxyPoolSidebar">
+                <span class="nav-icon">🔒</span>
+                <span class="nav-label">Proxy Pool & Router</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" id="navGithubProxy">
+                <span class="nav-icon">🐙</span>
+                <span class="nav-label">GitHub Router</span>
+              </a>
+            </li>
+          </ul>
+
+          <div class="nav-section-title" style="margin-top: 18px;">TOOLS & SHIELD</div>
+          <ul class="nav-list">
+            <li>
+              <a href="#" class="nav-item" id="navExtensionClonerSidebar">
+                <span class="nav-icon">📦</span>
+                <span class="nav-label">Extension Cloner</span>
+              </a>
+            </li>
+            <li>
+              <a href="#" class="nav-item" id="navSettings">
+                <span class="nav-icon">⚙️</span>
+                <span class="nav-label">Shield Settings</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+      <div class="sidebar-footer">
+        <div class="engine-status-card">
+          <div class="status-card-header">
+            <span class="dot-active"></span>
+            <span class="status-card-title">Engine Active</span>
+          </div>
+          <div class="status-card-meta">
+            <span>🛡️ CreepJS Evaded</span> • <span>WebRTC Leak Proof</span>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      
+      <!-- DASHBOARD VIEW 1: PROFILES MANAGER -->
+      <div id="viewProfilesSection">
+        
+        <!-- DASHBOARD EXECUTIVE METRICS SUMMARY ROW -->
+        <div class="dashboard-stats-grid">
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284c7;">👥</div>
+            <div class="dash-stat-info">
+              <div class="dash-stat-val" id="statTotalProfiles">0</div>
+              <div class="dash-stat-label">Total Profiles</div>
+            </div>
+          </div>
+
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: rgba(5, 150, 105, 0.1); color: #059669;">🟢</div>
+            <div class="dash-stat-info">
+              <div class="dash-stat-val" id="statActiveProfiles">0</div>
+              <div class="dash-stat-label">Active Running</div>
+            </div>
+          </div>
+
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">☁️</div>
+            <div class="dash-stat-info">
+              <div class="dash-stat-val" id="statCloudProfiles">0</div>
+              <div class="dash-stat-label">GitHub Cloud IP</div>
+            </div>
+          </div>
+
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #d97706;">🌐</div>
+            <div class="dash-stat-info">
+              <div class="dash-stat-val" id="statDirectProfiles">0</div>
+              <div class="dash-stat-label">Direct / Custom IP</div>
+            </div>
+          </div>
+
+          <div class="dash-stat-card">
+            <div class="dash-stat-icon" style="background: rgba(15, 23, 42, 0.08); color: #0f172a;">🐙</div>
+            <div class="dash-stat-info">
+              <div class="dash-stat-val" id="statGithubPats">0</div>
+              <div class="dash-stat-label">GitHub PAT Accounts</div>
+            </div>
+          </div>
+
+          <div class="dash-stat-card" id="statStorageCard" title="Total profile disk storage footprint across all profiles">
+            <div class="dash-stat-icon" style="background: rgba(220, 38, 38, 0.1); color: #dc2626;">💾</div>
+            <div class="dash-stat-info">
+              <div class="dash-stat-val" id="statTotalStorage">0 B</div>
+              <div class="dash-stat-label">Total Storage Size</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Sticky Dashboard Control Toolbar -->
+        <div class="fixed-app-header">
+          <!-- Row 1: Top Header Title, Live News/Notification Bar & Primary Action Buttons -->
+          <div class="top-header-bar">
+            <div class="header-left-title">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <h1>Nano ADB Studio</h1>
+                <span class="pro-badge-glow">V143 PRO</span>
+              </div>
+              <p>Multi-Profile Anti-Detect Engine & Egress Cloud Proxy Hub</p>
+            </div>
+
+            <!-- Top Header Live News & Notification Ticker Bar (Replacing Popups) -->
+            <div class="top-header-news-bar" id="headerNewsBar">
+              <div class="news-badge">
+                <span class="pulse-dot"></span>
+                <span>NEWS & LIVE STATUS</span>
+              </div>
+              <div class="news-ticker-viewport">
+                <div class="news-ticker-text" id="newsTickerText">
+                  🚀 System Ready — Select profiles to launch anti-detect browser instances with automated proxy routing.
+                </div>
+              </div>
+              <button class="btn-news-history" id="btnNewsHistory" title="View Notification Log History">
+                📜 Logs (<span id="newsCountBadge">1</span>)
+              </button>
+              
+              <!-- News & Notification History Dropdown Drawer -->
+              <div class="news-history-drawer" id="newsHistoryDrawer">
+                <div class="news-drawer-header">
+                  <div style="display: flex; align-items: center; gap: 8px;">
+                    <span style="font-size: 14px;">📡</span>
+                    <strong>Notification & Event Stream</strong>
+                  </div>
+                  <button class="btn-clear-news" id="btnClearNewsLogs" title="Clear History">Clear</button>
+                </div>
+                <div class="news-drawer-list" id="newsDrawerList">
+                  <div class="news-log-item info">
+                    <span class="news-log-time">Just now</span>
+                    <span class="news-log-text">🚀 System initialized and ready. All profiles loaded.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="top-right-actions">
+              <button class="btn btn-amber btn-glow" id="btnBulkOpenHeader" title="Bulk open profiles in multiples of 5 (5, 10, 15, 20, 25, 30...) tiled across screen">
+                🚀 Bulk Open
+              </button>
+              <button class="btn btn-green btn-glow" id="btnCreateProfileHeader">
+                + Create Profile
+              </button>
+              <button class="btn btn-blue" id="btnLaunchAll" title="Launch selected profiles with 5x4 Grid & Real-Time Auto-Scroll">
+                ▶ Open Selected (0)
+              </button>
+              <button class="btn btn-purple" id="btnOpenDevicesModalHeader" title="Explore Devices Gallery & Real User Agents">
+                📱 Devices Gallery
+              </button>
+              <button class="btn btn-dark" id="btnGithubAccountsHeader">
+                🐙 GitHub Router
+              </button>
+              <button class="btn btn-outline" id="btnCheckUpdateHeader" title="Sync Files & Update Software (One-Click)">
+                🔄 Sync & Update
+              </button>
+            </div>
+          </div>
+
+          <!-- Row 2: Filter Tabs & Quick Batch Actions Ribbon -->
+          <div class="secondary-toolbar">
+            <div class="tabs-group">
+              <button class="tab-btn active" data-tab="all">
+                👥 All Profiles <span class="tab-pill" id="countTabAll">0</span>
+              </button>
+              <button class="tab-btn" data-tab="active">
+                🟢 Active Profiles <span class="tab-pill" id="countTabActive">0</span>
+              </button>
+              <button class="tab-btn" data-tab="github_cloud">
+                ☁️ GitHub Cloud IP <span class="tab-pill" id="countTabCloud">0</span>
+              </button>
+              <button class="tab-btn" data-tab="direct">
+                🌐 Direct Mode <span class="tab-pill" id="countTabDirect">0</span>
+              </button>
+            </div>
+
+            <div class="batch-actions-left">
+              <button class="btn btn-dark btn-sm" id="btnTestAllIps" title="Sequentially test each profile IP & connection status line by line">
+                🧪 Test All IPs
+              </button>
+              <button class="btn btn-purple btn-sm" id="btnToggleGlobalAutoScroll" title="Toggle Real-Time Auto-Scroll & Click Random Posts">
+                ⚡ Auto-Scroll & Click
+              </button>
+              <button class="btn btn-amber btn-sm" id="btnCleanAllCaches" title="Delete Cache, Code Cache, GPUCache & logs across all profiles while preserving Cookies & Login sessions">
+                🧹 Clean All Caches
+              </button>
+              <button class="btn btn-outline btn-sm" id="btnCloneSelected" title="Clone selected profile(s)">
+                📑 Clone Selected
+              </button>
+              <button class="btn btn-outline btn-sm" id="btnBulkCreate">
+                📋 Bulk Create
+              </button>
+              <button class="btn btn-outline btn-sm" id="btnExtensionCloner" title="Bulk update shield extension across profile directories">
+                📦 Extension Cloner
+              </button>
+              <button class="btn btn-red btn-sm" id="btnBatchDelete">
+                🗑️ Delete Selected
+              </button>
+              <button class="btn btn-outline btn-sm" id="btnCloseAll">
+                ❌ Close All
+              </button>
+              <button class="btn btn-outline btn-sm" id="btnRefresh" title="Refresh Profiles list">
+                🔄 Refresh
+              </button>
+            </div>
+          </div>
+
+          <!-- Row 3: Selection, Search, and Global Target Site Sync -->
+          <div class="search-toolbar">
+            <div class="select-all-wrap">
+              <label style="display: flex; align-items: center; gap: 6px; cursor: pointer; user-select: none;">
+                <input type="checkbox" id="selectAllCheckbox" class="profile-checkbox">
+                <span>Select All</span>
+              </label>
+              <span style="font-size: 11px; color: var(--text-muted);" id="selectionSummary">(0 selected)</span>
+            </div>
+
+            <div class="search-input-box" style="flex: 1.2;">
+              <span class="search-icon">🔍</span>
+              <input type="text" id="searchInput" placeholder="Search profiles by title, group, or URL...">
+            </div>
+
+            <div class="search-input-box global-url-box">
+              <span class="search-icon">🌐</span>
+              <input type="text" id="globalLaunchUrlInput" placeholder="Set target site (e.g. https://whoer.net)...">
+              <button class="btn btn-green btn-sm" id="btnApplyGlobalUrl" title="Set startup URL for all profiles">
+                ⚡ Sync URL
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Main Profile List Box Wrapper -->
+        <div class="profiles-box-container">
+          <div class="profiles-box-header">
+            <div class="profiles-box-title">
+              <span class="profiles-box-badge" id="profilesBoxBadge">0 Profiles Loaded</span>
+            </div>
+          </div>
+          <div class="dashboard-body" id="profilesContainer">
+            <!-- Dynamically Populated by App.js -->
+          </div>
+        </div>
+      </div>
+
+      <!-- DASHBOARD VIEW 2: GITHUB ROUTER & PROFILE MANAGEMENT (INTEGRATED DASHBOARD VIEW, NO POPUPS) -->
+      <div id="viewGithubSection" style="display: none; padding: 20px;">
+        <div class="gh-router-dashboard-card" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); overflow: hidden; display: flex; flex-direction: column;">
+          
+          <!-- Anti-Gravity Glassmorphism Header Bar -->
+          <div class="gh-router-header" style="padding: 16px 24px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #ffffff; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="gh-neon-icon" style="width: 42px; height: 42px; background: linear-gradient(135deg, #8b5cf6, #06b6d4); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 15px rgba(6, 182, 212, 0.4);">
+                  🐙
+                </div>
+                <div>
+                  <div style="color: #ffffff; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">
+                    GitHub Router
+                    <span class="badge-pill badge-neon" id="headerRouterStatusBadge">ONLINE</span>
+                  </div>
+                  <div style="font-size: 11px; color: #94a3b8;">
+                    Anti-Gravity Proxy Routing Engine & Authoritative Credential Protection
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px;">
+                <button class="btn btn-purple btn-glow" id="btnTestGithubRouter" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #8b5cf6, #6366f1); color: #fff; border: none; border-radius: 8px; box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); cursor: pointer;" title="Run full connection & diagnostic check on configured router">
+                  🧪 Test GitHub Router
+                </button>
+                <button class="btn btn-blue btn-glow" id="btnBulkAddGithubModal" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #0284c7, #06b6d4); color: #fff; border: none; border-radius: 8px; box-shadow: 0 0 12px rgba(6, 182, 212, 0.4); cursor: pointer;" title="Import multiple GitHub PAT tokens via CSV">
+                  📥 Bulk Add GitHub
+                </button>
+                <button class="btn btn-green" id="btnOpenConnectSingleModal" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: #059669; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
+                  + Connect PAT
+                </button>
+                <button class="btn btn-dark" id="closeGithubModal" style="padding: 6px 12px; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer;" title="Back to Profiles View">
+                  ← Back to Profiles
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 7 Navigation Tabs Toolbar -->
+          <div class="gh-tabs-navigation" style="display: flex; background: #0f172a; padding: 0 20px; border-bottom: 1px solid #1e293b; overflow-x: auto; scrollbar-width: none;">
+            <button class="gh-tab-item active" data-gh-tab="overview">📊 Overview</button>
+            <button class="gh-tab-item" data-gh-tab="routers">🌐 Routers</button>
+            <button class="gh-tab-item" data-gh-tab="accounts">🐙 GitHub Accounts</button>
+            <button class="gh-tab-item" data-gh-tab="allocation">🔗 Profile Allocation</button>
+            <button class="gh-tab-item" data-gh-tab="duplicated">👯 Duplicated PAT Profiles</button>
+            <button class="gh-tab-item" data-gh-tab="usage">📈 Usage</button>
+            <button class="gh-tab-item" data-gh-tab="logs">📋 Logs</button>
+          </div>
+
+          <!-- Dashboard Body (Scrollable Content Panels) -->
+          <div class="gh-dashboard-body" style="padding: 20px; min-height: 500px; background: #f8fafc;">
+
+            <!-- INLINE PANEL 1: ROUTER DIAGNOSTICS TEST PANEL -->
+            <div id="inlineRouterTestPanel" style="display: none; background: #ffffff; border: 2px solid #8b5cf6; border-radius: 12px; padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(139, 92, 246, 0.15);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+                <div style="font-size: 15px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                  <span>🧪</span> GitHub Router Connection & Diagnostics Test
+                </div>
+                <button class="btn btn-outline" id="btnCloseInlineRouterTestPanel" style="padding: 4px 10px; font-size: 11px;">✕ Hide Diagnostics</button>
+              </div>
+              <div id="inlineRouterTestContent">
+                <div style="text-align: center; padding: 20px;">
+                  <div class="spinner" style="margin: 0 auto 12px auto;"></div>
+                  <p style="font-weight: 700;">Running Router Connection Diagnostics...</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- INLINE PANEL 2: BULK ADD GITHUB (CSV / TEXT PASTE) PANEL -->
+            <div id="inlineBulkAddPanel" style="display: none; background: #ffffff; border: 2px solid #0284c7; border-radius: 12px; padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(2, 132, 199, 0.15);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+                <div style="font-size: 15px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                  <span>📥</span> Bulk Add GitHub Accounts (Paste PAT Tokens)
+                </div>
+                <button class="btn btn-outline" id="btnCloseInlineBulkAddPanel" style="padding: 4px 10px; font-size: 11px;">✕ Hide Panel</button>
+              </div>
+
+              <form id="inlineBulkGithubForm">
+                <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 12px; color: var(--text-secondary);">
+                  <strong>Paste GitHub Personal Access Tokens (PATs) line-by-line or as CSV:</strong><br>
+                  <span style="font-size: 11px; color: var(--text-muted);">Supports formats: <code>ghp_token,Account Label</code> or single token per line <code>ghp_token</code>.</span>
+                </div>
+
+                <div style="display: grid; grid-template-columns: 1fr 220px; gap: 12px; margin-bottom: 12px;" class="bulk-input-row">
+                  <div class="form-group">
+                    <label class="form-label">Paste PAT Tokens Here *</label>
+                    <textarea id="inlineBulkCsvTextInput" class="form-input" style="height: 130px; font-family: monospace; font-size: 11px; line-height: 1.4;" placeholder="ghp_1234567890abcdef,Channel 1 Main&#10;ghp_abcdef1234567890,Channel 2 Backup" required></textarea>
+                  </div>
+
+                  <div class="form-group" style="display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                      <label class="form-label">Or Select .CSV File</label>
+                      <input type="file" id="inlineBulkCsvFileInput" class="form-input" accept=".csv,.txt" style="font-size: 11px;">
+                    </div>
+
+                    <button type="submit" class="btn btn-blue" id="btnSubmitInlineBulkGithub" style="width: 100%; padding: 10px; font-size: 13px; font-weight: 800; margin-top: 10px;">
+                      🚀 Validate & Connect PATs
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- Live Validation Results Box -->
+              <div id="inlineBulkValidationResults" style="display: none; margin-top: 14px; border-top: 1px solid var(--border-light); padding-top: 12px;"></div>
+            </div>
+
+            <!-- INLINE PANEL 3: CONNECT SINGLE PAT PANEL -->
+            <div id="inlineConnectSinglePanel" style="display: none; background: #ffffff; border: 2px solid #059669; border-radius: 12px; padding: 18px; margin-bottom: 20px; box-shadow: 0 4px 15px rgba(5, 150, 105, 0.15);">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+                <div style="font-size: 15px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 8px;">
+                  <span>🐙</span> Connect Single GitHub PAT Credential
+                </div>
+                <button class="btn btn-outline" id="btnCloseInlineSinglePanel" style="padding: 4px 10px; font-size: 11px;">✕ Hide Panel</button>
+              </div>
+
+              <form id="inlineSingleAccountForm" style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="proxy-grid-2">
+                  <div class="form-group">
+                    <label class="form-label">Personal Access Token (PAT) *</label>
+                    <input type="password" id="inlineSinglePatInput" class="form-input" placeholder="ghp_... or gho_..." required>
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label">Account Label (Optional)</label>
+                    <input type="text" id="inlineSingleLabelInput" class="form-input" placeholder="e.g. Channel 1 Main">
+                  </div>
+                </div>
+                <button type="submit" class="btn btn-green" id="btnSubmitInlineSingle" style="padding: 10px; font-size: 13px; font-weight: 800;">
+                  Verify & Connect Account
+                </button>
+              </form>
+            </div>
+
+            <!-- TAB 1: OVERVIEW -->
+            <div class="gh-tab-panel active" id="ghTabOverview">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Router System Summary</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Live status, allocation state, and security monitoring</p>
+                </div>
+                <button class="btn btn-outline" id="btnRefreshOverview" style="padding: 4px 10px; font-size: 11px;">🔄 Refresh Stats</button>
+              </div>
+
+              <!-- Overview Stat Cards Grid -->
+              <div class="gh-overview-cards-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;">
+                
+                <div class="gh-stat-card">
+                  <div class="stat-icon" style="background: rgba(139, 92, 246, 0.1); color: #8b5cf6;">⚡</div>
+                  <div>
+                    <div class="stat-value" id="ovTotalRouters">1 Active</div>
+                    <div class="stat-label">Configured Router</div>
+                  </div>
+                </div>
+
+                <div class="gh-stat-card">
+                  <div class="stat-icon" style="background: rgba(6, 182, 212, 0.1); color: #06b6d4;">🐙</div>
+                  <div>
+                    <div class="stat-value" id="ovTotalAccounts">0 Total</div>
+                    <div class="stat-label">GitHub PAT Accounts</div>
+                  </div>
+                </div>
+
+                <div class="gh-stat-card">
+                  <div class="stat-icon" style="background: rgba(16, 185, 129, 0.1); color: #10b981;">🔗</div>
+                  <div>
+                    <div class="stat-value" id="ovActiveAllocations">0 / 0</div>
+                    <div class="stat-label">Active Profile Allocations</div>
+                  </div>
+                </div>
+
+                <div class="gh-stat-card">
+                  <div class="stat-icon" style="background: rgba(245, 158, 11, 0.1); color: #f59e0b;">🛡️</div>
+                  <div>
+                    <div class="stat-value" id="ovAllowApprovals">0 Approved</div>
+                    <div class="stat-label">Explicit Allow Controls</div>
+                  </div>
+                </div>
+
+                <div class="gh-stat-card">
+                  <div class="stat-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">👯</div>
+                  <div>
+                    <div class="stat-value" id="ovDuplicatedCount">0 Profiles</div>
+                    <div class="stat-label">Duplicated PAT Profiles</div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Quick Action Cards Grid -->
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+                
+                <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; padding: 18px;">
+                  <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">🌐 Router Connectivity</div>
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Test overall egress proxy status, exit IP, latency, and GitHub runner API access.</p>
+                  <button class="btn btn-purple" id="btnTestGithubRouterTab" style="width: 100%; font-size: 12px; padding: 8px;">🧪 Run Diagnostics Test</button>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; padding: 18px;">
+                  <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">📥 Bulk PAT Import</div>
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Import multiple PAT tokens, automatically test each token against GitHub API, and securely store encrypted credentials.</p>
+                  <button class="btn btn-blue" id="btnBulkAddGithubTabBtn" style="width: 100%; font-size: 12px; padding: 8px;">📥 Bulk Add GitHub (CSV)</button>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; padding: 18px;">
+                  <div style="font-size: 14px; font-weight: 800; color: #0f172a; margin-bottom: 6px;">🐙 Single PAT Connect</div>
+                  <p style="font-size: 12px; color: var(--text-muted); margin-bottom: 12px;">Connect a single GitHub Personal Access Token (PAT) with automated credential validation.</p>
+                  <button class="btn btn-green" id="btnConnectSingleTabBtn" style="width: 100%; font-size: 12px; padding: 8px;">+ Connect Single PAT</button>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- TAB 2: ROUTERS -->
+            <div class="gh-tab-panel" id="ghTabRouters">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Egress Proxy Routers</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Configured proxy exit nodes & routing infrastructure</p>
+                </div>
+              </div>
+
+              <div id="routerNodesContainer" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 14px;"></div>
+            </div>
+
+            <!-- TAB 3: GITHUB ACCOUNTS -->
+            <div class="gh-tab-panel" id="ghTabAccounts">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Connected GitHub PAT Accounts</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Authoritative GitHub account pool with encrypted token storage</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-blue" id="btnBulkAddFromAccountsTab" style="padding: 6px 12px; font-size: 12px;">📥 Bulk Add PATs</button>
+                  <button class="btn btn-green" id="btnConnectFromAccountsTab" style="padding: 6px 12px; font-size: 12px;">+ Add Account</button>
+                </div>
+              </div>
+
+              <div class="gh-table-container" style="overflow-x: auto; overflow-y: auto; max-height: 58vh; background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px;">
+                <table class="gh-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                  <thead>
+                    <tr style="background: #f1f5f9; color: #475569; border-bottom: 1px solid var(--border-light); text-transform: uppercase; font-size: 10px; font-weight: 800; letter-spacing: 0.05em;">
+                      <th style="padding: 10px 14px;">GitHub Account</th>
+                      <th style="padding: 10px 14px;">PAT Credential</th>
+                      <th style="padding: 10px 14px;">Status</th>
+                      <th style="padding: 10px 14px;">Runner Repo</th>
+                      <th style="padding: 10px 14px;">Assigned Profiles</th>
+                      <th style="padding: 10px 14px;">Requests / Launches</th>
+                      <th style="padding: 10px 14px;">Last Used</th>
+                      <th style="padding: 10px 14px; text-align: right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="accountsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- TAB 4: PROFILE ALLOCATION -->
+            <div class="gh-tab-panel" id="ghTabAllocation">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Authoritative 1-to-1 Profile Allocation Matrix</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Enforce strict 1 GitHub account to 1 profile rule with explicit Admin Allow approval</p>
+                </div>
+              </div>
+
+              <div class="gh-table-container" style="overflow-x: auto; overflow-y: auto; max-height: 58vh; background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px;">
+                <table class="gh-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                  <thead>
+                    <tr style="background: #f1f5f9; color: #475569; border-bottom: 1px solid var(--border-light); text-transform: uppercase; font-size: 10px; font-weight: 800; letter-spacing: 0.05em;">
+                      <th style="padding: 10px 14px;">Profile Title</th>
+                      <th style="padding: 10px 14px;">Assigned GitHub PAT</th>
+                      <th style="padding: 10px 14px;">Egress Router</th>
+                      <th style="padding: 10px 14px;">Allocation Mode</th>
+                      <th style="padding: 10px 14px;">Admin Allow Approval</th>
+                      <th style="padding: 10px 14px;">1:1 Rule Check</th>
+                      <th style="padding: 10px 14px; text-align: right;">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="allocationMatrixTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- TAB 5: DUPLICATED PAT PROFILES -->
+            <div class="gh-tab-panel" id="ghTabDuplicated">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Duplicated PAT Profiles Tracker</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Track GitHub PATs allocated across multiple profiles and re-assign controlled profile batches</p>
+                </div>
+                <button class="btn btn-purple" id="btnOpenDuplicatedWorkflow" style="padding: 6px 14px; font-size: 12px; font-weight: 700;">⚡ + Allocate PAT to Multiple Profiles</button>
+              </div>
+
+              <div id="duplicatedAccountsContainer" style="display: flex; flex-direction: column; gap: 14px; max-height: 58vh; overflow-y: auto;"></div>
+            </div>
+
+            <!-- TAB 6: USAGE -->
+            <div class="gh-tab-panel" id="ghTabUsage">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Real-Time Request & Launch Usage Counter</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Hourly & daily usage metrics per GitHub account and profile</p>
+                </div>
+                <button class="btn btn-red" id="btnResetUsageCounters" style="padding: 6px 12px; font-size: 12px;">🗑️ Reset Usage Counters</button>
+              </div>
+
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px;" class="usage-grid">
+                <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; padding: 16px;">
+                  <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 12px;">🐙 Usage by GitHub Account</h4>
+                  <div id="accountUsageList" style="display: flex; flex-direction: column; gap: 10px; max-height: 52vh; overflow-y: auto;"></div>
+                </div>
+
+                <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px; padding: 16px;">
+                  <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 12px;">👤 Usage by Profile</h4>
+                  <div id="profileUsageList" style="display: flex; flex-direction: column; gap: 10px; max-height: 52vh; overflow-y: auto;"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- TAB 7: LOGS -->
+            <div class="gh-tab-panel" id="ghTabLogs">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                <div>
+                  <h3 style="font-size: 15px; font-weight: 800; color: #0f172a; margin: 0;">Real-Time System Audit Log Timeline</h3>
+                  <p style="font-size: 12px; color: var(--text-muted); margin: 2px 0 0 0;">Complete audit trail of router tests, PAT imports, Allow approvals, and security events</p>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <select id="auditLogSeverityFilter" class="form-select" style="padding: 5px 12px; font-size: 12px; width: 130px;">
+                    <option value="all">All Severities</option>
+                    <option value="info">Info</option>
+                    <option value="success">Success</option>
+                    <option value="warning">Warning</option>
+                    <option value="error">Error</option>
+                  </select>
+                  <button class="btn btn-outline" id="btnRefreshAuditLogs" style="padding: 6px 12px; font-size: 12px;">🔄 Refresh Logs</button>
+                </div>
+              </div>
+
+              <div class="gh-table-container" style="overflow-x: auto; overflow-y: auto; max-height: 58vh; background: #ffffff; border: 1px solid var(--border-light); border-radius: 12px;">
+                <table class="gh-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                  <thead>
+                    <tr style="background: #f1f5f9; color: #475569; border-bottom: 1px solid var(--border-light); text-transform: uppercase; font-size: 10px; font-weight: 800; letter-spacing: 0.05em;">
+                      <th style="padding: 10px 14px;">Timestamp</th>
+                      <th style="padding: 10px 14px;">Type</th>
+                      <th style="padding: 10px 14px;">Action</th>
+                      <th style="padding: 10px 14px;">Target</th>
+                      <th style="padding: 10px 14px;">Details</th>
+                      <th style="padding: 10px 14px; text-align: right;">Severity</th>
+                    </tr>
+                  </thead>
+                  <tbody id="auditLogsTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+      <!-- DASHBOARD VIEW 3: PROXY POOL MANAGER & ROUTER (INTEGRATED VIEW) -->
+      <div id="viewProxySection" style="display: none; padding: 20px;">
+        <div class="proxy-dashboard-card" style="background: #ffffff; border: 1px solid var(--border-light); border-radius: var(--radius-lg); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05); overflow: hidden; display: flex; flex-direction: column;">
+          
+          <!-- Anti-Gravity Glassmorphism Header Bar -->
+          <div class="proxy-router-header" style="padding: 16px 24px; background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #ffffff; border-bottom: 1px solid rgba(255, 255, 255, 0.1);">
+            <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; flex-wrap: wrap; gap: 12px;">
+              <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="proxy-neon-icon" style="width: 42px; height: 42px; background: linear-gradient(135deg, #10b981, #06b6d4); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; box-shadow: 0 0 15px rgba(16, 185, 129, 0.4);">
+                  🔒
+                </div>
+                <div>
+                  <div style="color: #ffffff; font-size: 17px; font-weight: 800; letter-spacing: -0.01em; display: flex; align-items: center; gap: 8px;">
+                    Proxy Pool Manager & Router
+                    <span class="badge-pill badge-neon" id="headerProxyStatusBadge">ONLINE</span>
+                  </div>
+                  <div style="font-size: 11px; color: #94a3b8;">
+                    Manage, parse, test, and rotate proxies across anti-detect profiles
+                  </div>
+                </div>
+              </div>
+
+              <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+                <button class="btn btn-purple btn-glow" id="btnTestAllProxies" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #8b5cf6, #6366f1); color: #fff; border: none; border-radius: 8px; box-shadow: 0 0 12px rgba(139, 92, 246, 0.4); cursor: pointer;" title="Test all proxies in pool for connection, ping & IP geolocation">
+                  🧪 Test All Proxies
+                </button>
+                <button class="btn btn-amber btn-glow" id="btnAutoAssignProxies" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #d97706, #f59e0b); color: #fff; border: none; border-radius: 8px; box-shadow: 0 0 12px rgba(245, 158, 11, 0.4); cursor: pointer;" title="Rotate & assign proxies 1:1 to profiles">
+                  ⚡ Auto-Assign to Profiles
+                </button>
+                <button class="btn btn-blue btn-glow" id="btnOpenBulkProxyModal" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: linear-gradient(135deg, #0284c7, #06b6d4); color: #fff; border: none; border-radius: 8px; box-shadow: 0 0 12px rgba(6, 182, 212, 0.4); cursor: pointer;" title="Import multiple proxy strings (IP:PORT:USER:PASS)">
+                  📥 Bulk Import Proxies
+                </button>
+                <button class="btn btn-green" id="btnOpenAddSingleProxyModal" style="padding: 6px 14px; font-size: 12px; font-weight: 700; background: #059669; color: #fff; border: none; border-radius: 8px; cursor: pointer;">
+                  + Add Proxy
+                </button>
+                <button class="btn btn-dark" id="closeProxySectionBtn" style="padding: 6px 12px; font-size: 12px; font-weight: 700; border-radius: 8px; cursor: pointer;" title="Back to Profiles View">
+                  ← Back to Profiles
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proxy Executive Metric Summary Row -->
+          <div style="padding: 16px 20px 0 20px; background: #f8fafc;">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px;">
+              <div class="dash-stat-card">
+                <div class="dash-stat-icon" style="background: rgba(2, 132, 199, 0.1); color: #0284c7;">🌐</div>
+                <div class="dash-stat-info">
+                  <div class="dash-stat-val" id="statTotalProxies">0</div>
+                  <div class="dash-stat-label">Total Proxies</div>
+                </div>
+              </div>
+
+              <div class="dash-stat-card">
+                <div class="dash-stat-icon" style="background: rgba(5, 150, 105, 0.1); color: #059669;">🟢</div>
+                <div class="dash-stat-info">
+                  <div class="dash-stat-val" id="statWorkingProxies">0</div>
+                  <div class="dash-stat-label">Working Proxies</div>
+                </div>
+              </div>
+
+              <div class="dash-stat-card">
+                <div class="dash-stat-icon" style="background: rgba(239, 68, 68, 0.1); color: #ef4444;">🔴</div>
+                <div class="dash-stat-info">
+                  <div class="dash-stat-val" id="statFailedProxies">0</div>
+                  <div class="dash-stat-label">Failed / Offline</div>
+                </div>
+              </div>
+
+              <div class="dash-stat-card">
+                <div class="dash-stat-icon" style="background: rgba(147, 51, 234, 0.1); color: #9333ea;">👤</div>
+                <div class="dash-stat-info">
+                  <div class="dash-stat-val" id="statAssignedProxies">0</div>
+                  <div class="dash-stat-label">Assigned Profiles</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Proxy Table Toolbar -->
+          <div style="padding: 14px 20px; background: #f8fafc; border-bottom: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+            <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+              <label style="display: flex; align-items: center; gap: 6px; font-size: 12px; cursor: pointer; user-select: none;">
+                <input type="checkbox" id="selectAllProxiesCheckbox">
+                <span>Select All</span>
+              </label>
+              <span style="font-size: 11px; color: var(--text-muted);" id="proxySelectionSummary">(0 selected)</span>
+              
+              <button class="btn btn-purple btn-sm" id="btnTestSelectedProxies" style="padding: 4px 10px; font-size: 11px;">
+                🧪 Test Selected
+              </button>
+              <button class="btn btn-red btn-sm" id="btnDeleteSelectedProxies" style="padding: 4px 10px; font-size: 11px;">
+                🗑️ Delete Selected
+              </button>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <div class="search-input-box" style="width: 260px;">
+                <span class="search-icon">🔍</span>
+                <input type="text" id="searchProxyInput" placeholder="Search IP, port, country, city or user...">
+              </div>
+              <button class="btn btn-outline btn-sm" id="btnRefreshProxies">🔄 Refresh</button>
+            </div>
+          </div>
+
+          <!-- Main Proxy Table Container (Exact Match to Screenshot) -->
+          <div style="padding: 16px 20px; background: #ffffff; min-height: 480px;">
+            <div class="proxy-table-container" style="overflow-x: auto; max-height: 60vh; border: 1px solid var(--border-light); border-radius: 12px;">
+              <table class="proxy-table" style="width: 100%; border-collapse: collapse; text-align: left; font-size: 12px;">
+                <thead>
+                  <tr style="background: #f1f5f9; color: #475569; border-bottom: 1px solid var(--border-light); text-transform: uppercase; font-size: 10px; font-weight: 800; letter-spacing: 0.05em;">
+                    <th style="padding: 12px 14px; width: 40px; text-align: center;">#</th>
+                    <th style="padding: 12px 14px;">Proxy Address</th>
+                    <th style="padding: 12px 14px;">Port</th>
+                    <th style="padding: 12px 14px;">Username</th>
+                    <th style="padding: 12px 14px;">Password</th>
+                    <th style="padding: 12px 14px;">Last Checked</th>
+                    <th style="padding: 12px 14px;">Status</th>
+                    <th style="padding: 12px 14px;">Country</th>
+                    <th style="padding: 12px 14px;">City</th>
+                    <th style="padding: 12px 14px;">Assigned Profile</th>
+                    <th style="padding: 12px 14px; text-align: right;">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="proxyTableBody">
+                  <!-- Dynamically rendered by app.js -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- SUB-MODAL 1: BULK ADD GITHUB CSV IMPORT MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="bulkGithubModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📥</span> Bulk Add GitHub Accounts (CSV Import)
+        </div>
+        <button class="modal-close" id="closeBulkGithubModal">&times;</button>
+      </div>
+
+      <form id="bulkGithubForm">
+        <div class="modal-body">
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 11px; color: var(--text-secondary); line-height: 1.5;">
+            <strong>CSV Format Instructions:</strong><br>
+            Paste your PAT tokens line by line or as CSV (`token,label` or `username,token,label`).<br>
+            Example:<br>
+            <code>ghp_1234567890abcdef,Account 1</code><br>
+            <code>ghp_abcdef1234567890,Account 2</code>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Or Upload CSV File</label>
+            <input type="file" id="bulkCsvFileInput" class="form-input" accept=".csv,.txt">
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="form-label">Paste CSV Content *</label>
+            <textarea id="bulkCsvTextInput" class="form-input" style="height: 150px; font-family: monospace; font-size: 11px;" placeholder="ghp_xxxx1,Account Label 1&#10;ghp_xxxx2,Account Label 2" required></textarea>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelBulkGithubBtn">Cancel</button>
+          <button type="submit" class="btn btn-blue" id="btnSubmitBulkGithub">🚀 Validate & Encrypt Import</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- SUB-MODAL 2: TEST GITHUB ROUTER DIAGNOSTICS MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="routerTestModal">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #fff;">
+        <div class="modal-title" style="color: #fff;">
+          <span>🧪</span> GitHub Router Diagnostic Results
+        </div>
+        <button class="modal-close" id="closeRouterTestModal" style="color: #fff;">&times;</button>
+      </div>
+
+      <div class="modal-body" id="routerTestModalBody" style="padding: 20px;">
+        <div style="text-align: center; padding: 20px;">
+          <div class="spinner" style="margin: 0 auto 12px auto;"></div>
+          <p style="font-weight: 700;">Testing Router Connection & Latency...</p>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 12px 20px; background: #f8fafc;">
+        <button type="button" class="btn btn-dark" id="btnCloseRouterTestModal">Close Diagnostics</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- SUB-MODAL 3: DUPLICATED PAT PROFILE ALLOCATION WORKFLOW MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="duplicatedWorkflowModal">
+    <div class="modal-content" style="max-width: 620px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>⚡</span> Multi-Profile PAT Allocation Wizard
+        </div>
+        <button class="modal-close" id="closeDuplicatedWorkflowModal">&times;</button>
+      </div>
+
+      <form id="duplicatedWorkflowForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Select GitHub Account / PAT *</label>
+            <select id="dwAccountSelect" class="form-select" required></select>
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label class="form-label">Select Target Profiles for Credential Allocation *</label>
+            <div id="dwProfilesChecklist" style="max-height: 200px; overflow-y: auto; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px; display: flex; flex-direction: column; gap: 8px;"></div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelDuplicatedWorkflowBtn">Cancel</button>
+          <button type="submit" class="btn btn-purple" id="btnExecuteDuplicatedWorkflow">⚡ Execute Sequential Allocation</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- SUB-MODAL 4: CONNECT SINGLE GITHUB ACCOUNT MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="singleAccountModal">
+    <div class="modal-content" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>🐙</span> Connect GitHub Account
+        </div>
+        <button class="modal-close" id="closeSingleAccountModal">&times;</button>
+      </div>
+
+      <form id="singleAccountForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Personal Access Token (PAT) *</label>
+            <input type="password" id="singlePatInput" class="form-input" placeholder="ghp_... or gho_..." required>
+          </div>
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="form-label">Account Label (Optional)</label>
+            <input type="text" id="singleLabelInput" class="form-input" placeholder="e.g. Channel 1 Main">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelSingleAccountBtn">Cancel</button>
+          <button type="submit" class="btn btn-green" id="submitSingleAccountBtn">Verify & Connect</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL 2: CREATE / EDIT PROFILE MODAL (PRO ANTI-DETECT) -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="modal-content" style="max-width: 680px;">
+      <div class="modal-header">
+        <div class="modal-title" id="profileModalTitle">Create New Anti-Detect Profile</div>
+        <button class="modal-close" id="closeProfileModal">&times;</button>
+      </div>
+
+      <form id="profileForm">
+        <input type="hidden" id="editProfileId">
+        <div class="modal-body" style="max-height: 75vh;">
+          
+          <!-- INTERACTIVE DEVICE SELECTION VISUAL PICKER -->
+          <div class="device-picker-section" style="margin-bottom: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <label class="form-label" style="margin: 0; font-size: 13px; font-weight: 800; color: #0f172a;">
+                📱 Instant Device Preset & Hardware Specs
+              </label>
+              <button type="button" class="btn btn-purple btn-sm" id="btnOpenDevicesGalleryInModal" style="padding: 3px 10px; font-size: 11px;">
+                🔍 Browse All Real Devices
+              </button>
+            </div>
+
+            <!-- Quick Choice Device Cards -->
+            <div class="quick-device-cards-grid">
+              <div class="quick-device-card active" data-device-preset="win-chrome-152">
+                <div class="q-device-icon">💻</div>
+                <div class="q-device-info">
+                  <div class="q-device-title">Win 11 Workstation</div>
+                  <div class="q-device-sub">Chrome 135 • 1920x1080</div>
+                </div>
+              </div>
+
+              <div class="quick-device-card" data-device-preset="mac-safari-18">
+                <div class="q-device-icon">🍏</div>
+                <div class="q-device-info">
+                  <div class="q-device-title">macOS Sequoia</div>
+                  <div class="q-device-sub">Safari 18.2 • M4 Pro</div>
+                </div>
+              </div>
+
+              <div class="quick-device-card" data-device-preset="iphone-safari-18">
+                <div class="q-device-icon">📱</div>
+                <div class="q-device-info">
+                  <div class="q-device-title">iPhone 16 Pro Max</div>
+                  <div class="q-device-sub">iOS 18.2 • Mobile Touch</div>
+                </div>
+              </div>
+
+              <div class="quick-device-card" data-device-preset="android-s24-chrome">
+                <div class="q-device-icon">🤖</div>
+                <div class="q-device-info">
+                  <div class="q-device-title">Galaxy S24 Ultra</div>
+                  <div class="q-device-sub">Android 14 • Chrome Mob</div>
+                </div>
+              </div>
+
+              <div class="quick-device-card" data-device-preset="linux-chrome-152">
+                <div class="q-device-icon">🐧</div>
+                <div class="q-device-info">
+                  <div class="q-device-title">Ubuntu 24.04 LTS</div>
+                  <div class="q-device-sub">Linux x64 • Chrome 135</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- DEVICE CATEGORY SELECTOR TABS -->
+          <div style="background: #f1f5f9; border: 1px solid var(--border-light); border-radius: 10px; padding: 6px; margin-bottom: 14px; display: flex; gap: 6px; align-items: center;">
+            <button type="button" class="btn tab-btn active" id="btnCatDesktop" style="flex: 1; padding: 6px 12px; font-size: 12px; font-weight: 700;">
+              💻 Desktop Category & UAs
+            </button>
+            <button type="button" class="btn tab-btn" id="btnCatMobile" style="flex: 1; padding: 6px 12px; font-size: 12px; font-weight: 700;">
+              📱 Mobile Category & UAs
+            </button>
+          </div>
+
+          <div class="proxy-grid-2">
+            <div class="form-group">
+              <label class="form-label">Profile Name / Account Title *</label>
+              <input type="text" id="profNameInput" class="form-input" placeholder="e.g. Facebook Account #101" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Profile Group</label>
+              <select id="profGroupSelect" class="form-select">
+                <option value="Default">Default</option>
+                <option value="Facebook Profiles">Facebook Profiles</option>
+                <option value="Twitter Accounts">Twitter Accounts</option>
+                <option value="Pinterest Accounts">Pinterest Accounts</option>
+                <option value="Adsterra Accounts">Adsterra Accounts</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="proxy-grid-2">
+            <div class="form-group">
+              <label class="form-label">Browser Engine *</label>
+              <select id="profEngineSelect" class="form-select">
+                <option value="blink">⚡ Blink Engine (Chromium Core - Chrome/Edge)</option>
+                <option value="gecko">🦊 Gecko Engine (Firefox Core)</option>
+                <option value="webkit">🧭 WebKit Engine (Safari Core)</option>
+                <option value="servo">⚙️ Servo Engine (Parallel Core)</option>
+                <option value="ladybird">🐞 Ladybird Engine (Independent Core)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Device Preset *</label>
+              <select id="profDeviceSelect" class="form-select">
+                <optgroup label="💻 Windows Desktop">
+                  <option value="win-chrome-152">💻 Windows 11 - Chrome 135 (x64 Core i9)</option>
+                  <option value="win-firefox-135">🦊 Windows 11 - Mozilla Firefox 135 (x64 Engine)</option>
+                  <option value="win-edge-150">🖥️ Windows 11 - Microsoft Edge 134 (x64)</option>
+                  <option value="win-opera-116">🔴 Windows 11 - Opera 116 (x64)</option>
+                  <option value="win10-chrome-134">💻 Windows 10 - Chrome 134 (Core i7)</option>
+                  <option value="win10-brave-173">🦁 Windows 10 - Brave Browser 1.73</option>
+                </optgroup>
+                <optgroup label="🍏 macOS & iPadOS">
+                  <option value="mac-safari-18">🍏 macOS Sequoia - Safari 18.2 (Apple M4 Pro)</option>
+                  <option value="mac-chrome-152">🍏 macOS Sonoma - Chrome 135 (Apple M3 Max)</option>
+                  <option value="mac-firefox-135">🍏 macOS Ventura - Firefox 135 (Intel i9)</option>
+                  <option value="mac-safari-17">🍏 macOS Monterey - Safari 17.5 (Apple M1)</option>
+                  <option value="ipad-safari-18">📱 iPad Pro 13" M4 - Safari 18 (iPadOS 18.2)</option>
+                </optgroup>
+                <optgroup label="🐧 Linux Workstations">
+                  <option value="linux-chrome-152">🐧 Ubuntu Linux 24.04 LTS - Chrome 135 (x64)</option>
+                  <option value="linux-firefox-135">🐧 Ubuntu Linux 24.04 LTS - Firefox 135 (x64)</option>
+                  <option value="linux-fedora-chrome">🐧 Fedora 41 Linux - Chrome 134 (x64)</option>
+                  <option value="linux-arch-ladybird">🐞 Arch Linux - Ladybird 1.0 Independent Engine</option>
+                  <option value="linux-debian-servo">⚙️ Debian 12 - Servo 0.1 Parallel Engine</option>
+                </optgroup>
+                <optgroup label="📱 Mobile Smartphones">
+                  <option value="iphone-safari-18">📱 iPhone 16 Pro Max - Safari 18 (iOS 18.2)</option>
+                  <option value="iphone-chrome-152">📱 iPhone 15 Pro - Chrome Mobile 135 (iOS 18.1)</option>
+                  <option value="android-s24-chrome">🤖 Samsung Galaxy S24 Ultra - Chrome Mobile 135</option>
+                  <option value="android-pixel9-chrome">🤖 Google Pixel 9 Pro - Chrome Mobile 135</option>
+                  <option value="android-xiaomi14-chrome">🤖 Xiaomi 14 Ultra - Chrome Mobile 134</option>
+                  <option value="android-oneplus12-chrome">🤖 OnePlus 12 - Chrome Mobile 134</option>
+                </optgroup>
+              </select>
+            </div>
+          </div>
+
+          <!-- User Agent Library & Real Device Selection -->
+          <div class="form-group">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; flex-wrap: wrap; gap: 6px;">
+              <label class="form-label" style="margin-bottom: 0;">User-Agent Real Devices Library</label>
+              <div style="display: flex; gap: 4px;">
+                <button type="button" class="btn btn-dark" id="btnRandomizeDesktopUa" style="padding: 2px 8px; font-size: 11px;">💻 Random Desktop UA</button>
+                <button type="button" class="btn btn-purple" id="btnRandomizeMobileUa" style="padding: 2px 8px; font-size: 11px;">📱 Random Mobile UA</button>
+              </div>
+            </div>
+            
+            <select id="profUaPresetSelect" class="form-select" style="font-family: monospace; font-size: 11px; margin-bottom: 6px;">
+              <option value="">-- Select from Real Device User Agents --</option>
+            </select>
+
+            <input type="text" id="profUserAgentInput" class="form-input" style="font-family: monospace; font-size: 11px;" placeholder="Exact User-Agent string e.g. Mozilla/5.0 ...">
+          </div>
+
+          <!-- PRO ANTI-DETECT SHIELD ADVANCED GRID -->
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 14px; margin-top: 4px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 6px;">
+              <div style="font-size: 12px; font-weight: 800; color: #0f172a; display: flex; align-items: center; gap: 6px;">
+                🛡️ Pro Fingerprint Shields & Hardware Configuration
+              </div>
+              <div id="deviceModeBadge" style="font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 6px; background: #e0f2fe; color: #0369a1;">
+                💻 Mode: Desktop Real Device
+              </div>
+            </div>
+
+            <div class="proxy-grid-2">
+              <div class="form-group">
+                <label class="form-label">Screen Resolution</label>
+                <select id="profScreenResSelect" class="form-select">
+                  <option value="1920x1080">1920x1080 (Full HD 1080p Standard)</option>
+                  <option value="2560x1440">2560x1440 (2K QHD Display)</option>
+                  <option value="1366x768">1366x768 (HD Laptop Display)</option>
+                  <option value="1440x900">1440x900 (MacBook Air)</option>
+                  <option value="390x844">390x844 (Mobile Display)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">CPU Cores (Concurrency)</label>
+                <select id="profCpuSelect" class="form-select">
+                  <option value="4">4 Cores</option>
+                  <option value="8">8 Cores</option>
+                  <option value="12">12 Cores</option>
+                  <option value="16" selected>16 Cores (High Spec)</option>
+                  <option value="24">24 Cores (Extreme Workstation)</option>
+                  <option value="32">32 Cores</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="proxy-grid-2" style="margin-top: 10px;">
+              <div class="form-group">
+                <label class="form-label">Device RAM Memory</label>
+                <select id="profRamSelect" class="form-select">
+                  <option value="4">4 GB</option>
+                  <option value="8">8 GB</option>
+                  <option value="16" selected>16 GB</option>
+                  <option value="32">32 GB</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">WebRTC IP Leak Protection</label>
+                <select id="profWebRtcSelect" class="form-select">
+                  <option value="disabled">Disable WebRTC UDP (Prevent IP Leak)</option>
+                  <option value="real">Real WebRTC Connection</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="proxy-grid-2" style="margin-top: 10px;">
+              <div class="form-group">
+                <label class="form-label">Canvas & WebGL Shield</label>
+                <select id="profCanvasNoiseSelect" class="form-select">
+                  <option value="enabled">Noise Shield (CreepJS Evaded)</option>
+                  <option value="disabled">Real Canvas Output</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">AudioContext Fingerprint Shield</label>
+                <select id="profAudioNoiseSelect" class="form-select">
+                  <option value="enabled">Noise Shield Active</option>
+                  <option value="disabled">Off</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="proxy-grid-2" style="margin-top: 10px;">
+              <div class="form-group">
+                <label class="form-label">Accept-Language</label>
+                <select id="profLanguageSelect" class="form-select">
+                  <option value="en-US,en;q=0.9">en-US (English - United States)</option>
+                  <option value="en-GB,en;q=0.9">en-GB (English - United Kingdom)</option>
+                  <option value="de-DE,de;q=0.9">de-DE (German - Germany)</option>
+                  <option value="fr-FR,fr;q=0.9">fr-FR (French - France)</option>
+                  <option value="ur-PK,ur;q=0.9">ur-PK (Urdu / English - Pakistan)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label">Do Not Track (DNT)</label>
+                <select id="profDntSelect" class="form-select">
+                  <option value="0">Disabled (0)</option>
+                  <option value="1">Enabled (1)</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 12px;">
+            <label class="form-label">Proxy Connection Mode *</label>
+            <select id="profProxySelect" class="form-select">
+              <option value="github_cloud">☁️ GitHub Cloud Runner (Fresh Microsoft Azure IP)</option>
+              <option value="direct">🌐 Direct Connection (Local Network IP)</option>
+              <option value="custom">🔒 Custom Proxy (SOCKS5 / HTTP / HTTPS)</option>
+            </select>
+          </div>
+
+          <!-- Dynamic GitHub Account Selector Section -->
+          <div id="githubCloudSection" class="proxy-config-section" style="display: block;">
+            <div class="form-group">
+              <label class="form-label">Connected GitHub Account *</label>
+              <select id="profGithubAccSelect" class="form-select">
+                <!-- Dynamically populated by app.js -->
+              </select>
+            </div>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px;">
+              Assigns this profile to your selected GitHub account proxy quota with United States Azure IP routing.
+            </p>
+          </div>
+
+          <!-- Dynamic Custom Proxy Inputs Section -->
+          <div id="customProxySection" class="proxy-config-section" style="display: none;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <div style="font-size: 12px; font-weight: 800; color: #0f172a;">Custom Proxy & Pool Selection</div>
+              <button type="button" class="btn btn-dark" id="btnTestCustomProxy" style="padding: 4px 10px; font-size: 11px; display: flex; align-items: center; gap: 4px;">
+                ⚡ Test Connection
+              </button>
+            </div>
+            
+            <div id="proxyTestAlert" style="display: none; padding: 10px 14px; border-radius: 6px; font-size: 12px; font-weight: 600; line-height: 1.4; margin-bottom: 8px;"></div>
+
+            <!-- Option 1: Select Proxy from Proxy Pool -->
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label class="form-label">Select from Proxy Pool</label>
+              <select id="profProxyPoolSelect" class="form-select" style="font-family: monospace; font-size: 11px;">
+                <option value="">-- Choose Proxy from Pool --</option>
+              </select>
+            </div>
+
+            <!-- Option 2: Paste Format String -->
+            <div class="form-group" style="margin-bottom: 10px;">
+              <label class="form-label">Or Quick Paste Format String (IP:PORT:USER:PASS or USER:PASS@IP:PORT)</label>
+              <div style="display: flex; gap: 6px;">
+                <input type="text" id="profProxyFormatInput" class="form-input" style="font-family: monospace; font-size: 11px;" placeholder="e.g. 198.23.243.226:6641:gmvobhav:pbcrx4sh7bkn">
+                <button type="button" class="btn btn-outline" id="btnParseProfProxyFormat" style="padding: 4px 10px; font-size: 11px; white-space: nowrap;">⚡ Parse</button>
+              </div>
+            </div>
+
+            <div class="proxy-grid-2">
+              <div class="form-group">
+                <label class="form-label">Protocol</label>
+                <select id="proxyProtocolInput" class="form-select">
+                  <option value="socks5">SOCKS5</option>
+                  <option value="http">HTTP</option>
+                  <option value="https">HTTPS</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label class="form-label">Host / IP *</label>
+                <input type="text" id="proxyHostInput" class="form-input" placeholder="e.g. 192.168.1.100 or proxy.com">
+              </div>
+            </div>
+
+            <div class="proxy-grid-2">
+              <div class="form-group">
+                <label class="form-label">Port *</label>
+                <input type="number" id="proxyPortInput" class="form-input" placeholder="e.g. 1080">
+              </div>
+              <div class="form-group">
+                <label class="form-label">Username (Optional)</label>
+                <input type="text" id="proxyUserInput" class="form-input" placeholder="Proxy Username">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Password (Optional)</label>
+              <input type="password" id="proxyPassInput" class="form-input" placeholder="Proxy Password">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Profile Timezone *</label>
+            <select id="profTimezoneSelect" class="form-select">
+              <option value="America/New_York">us America/New_York (US Eastern Time - EDT/EST)</option>
+              <option value="America/Chicago">us America/Chicago (US Central Time - CDT/CST)</option>
+              <option value="America/Denver">us America/Denver (US Mountain Time)</option>
+              <option value="America/Los_Angeles">us America/Los_Angeles (US Pacific Time - PDT/PST)</option>
+              <option value="Europe/London">gb Europe/London (UK GMT/BST)</option>
+              <option value="Europe/Paris">fr Europe/Paris (France CET/CEST)</option>
+              <option value="Europe/Berlin">de Europe/Berlin (Germany CET/CEST)</option>
+              <option value="Asia/Dubai">ae Asia/Dubai (UAE GST +4)</option>
+              <option value="Asia/Singapore">sg Asia/Singapore (Singapore SGT +8)</option>
+              <option value="Asia/Tokyo">jp Asia/Tokyo (Japan JST +9)</option>
+              <option value="Asia/Kolkata">in Asia/Kolkata (India IST +5:30)</option>
+              <option value="UTC">🌐 UTC (Universal Coordinated Time)</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Default Launch URL</label>
+            <input type="text" id="profLaunchUrl" class="form-input" value="https://whoer.net" placeholder="e.g. https://whoer.net">
+          </div>
+
+          <div class="form-group" style="margin-top: 12px;">
+            <label class="form-label">📁 Custom Profile Storage Directory Path (Prevent C: Drive Overload)</label>
+            <input type="text" id="profStoragePathInput" class="form-input" placeholder="e.g. D:\AntiDetect_Profiles or leave empty for default ./profiles_store">
+            <small style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">
+              Save profile cookies, cache, & extensions on a custom drive (e.g., D:\, E:\) to prevent C: drive disk full issues.
+            </small>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelProfileBtn">Cancel</button>
+          <button type="submit" class="btn btn-green" id="saveProfileBtn">+ Create Profile</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL 3: BULK CREATE PROFILES MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="bulkCreateModal">
+    <div class="modal-content" style="max-width: 540px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📋</span> Bulk Create Anti-Detect Profiles
+        </div>
+        <button class="modal-close" id="closeBulkCreateModal">&times;</button>
+      </div>
+
+      <form id="bulkCreateForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label">Profile Base Title / Account Name *</label>
+            <input type="text" id="bulkBaseNameInput" class="form-input" placeholder="e.g. Facebook Account" value="Facebook Account" required>
+            <small style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Profiles will be named e.g. "Facebook Account #1", "Facebook Account #2"...</small>
+          </div>
+
+          <div class="proxy-grid-2" style="margin-top: 12px;">
+            <div class="form-group">
+              <label class="form-label">Number of Profiles *</label>
+              <input type="number" id="bulkCountInput" class="form-input" min="1" max="50" value="5" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Profile Group</label>
+              <select id="bulkGroupSelect" class="form-select">
+                <option value="Default">Default</option>
+                <option value="Facebook Profiles">Facebook Profiles</option>
+                <option value="Twitter Accounts">Twitter Accounts</option>
+                <option value="Pinterest Accounts">Pinterest Accounts</option>
+                <option value="Adsterra Accounts">Adsterra Accounts</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="proxy-grid-2" style="margin-top: 12px;">
+            <div class="form-group">
+              <label class="form-label">Device Preset *</label>
+              <select id="bulkDeviceSelect" class="form-select">
+                <option value="win-chrome-152">💻 Windows 11 - Chrome 135 (x64 Core i9)</option>
+                <option value="win-firefox-135">🦊 Windows 11 - Mozilla Firefox 135 (x64 Engine)</option>
+                <option value="mac-safari-18">🍏 macOS Sequoia - Safari 18.2 (Apple M4 Pro)</option>
+                <option value="iphone-safari-18">📱 iPhone 16 Pro Max - Safari 18 (iOS 18.2)</option>
+                <option value="android-s24-chrome">🤖 Samsung Galaxy S24 Ultra - Chrome Mobile</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label">Connection / Proxy Type *</label>
+              <select id="bulkProxySelect" class="form-select">
+                <option value="github_cloud">☁️ GitHub Cloud Runner (US Cloud IP)</option>
+                <option value="direct">🌐 Direct Connection (Local IP)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 12px;">
+            <label class="form-label">Target Startup URL</label>
+            <input type="url" id="bulkLaunchUrlInput" class="form-input" placeholder="e.g. https://whoer.net" value="https://whoer.net">
+          </div>
+
+          <div class="form-group" style="margin-top: 12px;">
+            <label class="form-label">📁 Custom Storage Directory Path (Prevent C: Drive Overload)</label>
+            <input type="text" id="bulkStoragePathInput" class="form-input" placeholder="e.g. D:\AntiDetect_Profiles (Optional)">
+            <small style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">Save profile files on D:\ or E:\ drive.</small>
+          </div>
+        </div>
+
+        <div class="modal-footer" style="padding: 16px 24px; background: #f8fafc; border-top: 1px solid var(--border-light); display: flex; justify-content: flex-end; gap: 10px; border-bottom-left-radius: var(--radius-lg); border-bottom-right-radius: var(--radius-lg);">
+          <button type="button" class="btn btn-outline" id="cancelBulkCreateBtn">Cancel</button>
+          <button type="submit" class="btn btn-green" id="submitBulkCreateBtn">⚡ Generate Profiles</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL 4: PRO EXTENSION CLONER & UPLOADER MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="extensionClonerModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📦</span> Extension Cloner & Bulk Installer
+        </div>
+        <button class="modal-close" id="closeExtensionClonerModal">&times;</button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Sub-tabs for Extension Cloner -->
+        <div style="display: flex; gap: 8px; margin-bottom: 16px; border-bottom: 1px solid var(--border-light); padding-bottom: 10px;">
+          <button type="button" class="tab-btn active" id="tabExtCloneFromProfile">
+            🔄 Clone from Profile
+          </button>
+          <button type="button" class="tab-btn" id="tabExtUploadNew">
+            📤 Upload / Install Custom Extension
+          </button>
+        </div>
+
+        <!-- Section A: Clone from Existing Profile -->
+        <form id="formCloneFromProfile">
+          <div class="form-group">
+            <label class="form-label">Source Profile (Select Profile to Copy Extension From) *</label>
+            <select id="extSourceProfileSelect" class="form-select" required>
+              <option value="">-- Select Source Profile --</option>
+            </select>
+            <small style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">
+              All extensions & configurations installed in this profile will be cloned to target profiles.
+            </small>
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label class="form-label">Target Profiles *</label>
+            <select id="extCloneTargetModeSelect" class="form-select">
+              <option value="all">🌐 All Other Browser Profiles</option>
+              <option value="selected">☑️ Only Selected Profiles</option>
+            </select>
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn btn-outline" id="cancelExtCloneBtn">Cancel</button>
+            <button type="submit" class="btn btn-blue" id="submitExtCloneBtn">
+              ⚡ Clone Extension to Target Profiles
+            </button>
+          </div>
+        </form>
+
+        <!-- Section B: Upload Custom Extension -->
+        <form id="formUploadExtension" style="display: none;">
+          <div class="form-group">
+            <label class="form-label">Upload Extension File (.zip / .crx) or Select Zip</label>
+            <input type="file" id="extFileInput" class="form-input" accept=".zip,.crx,.crx3">
+            <small style="font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px;">
+              Select a Chrome Extension .zip / .crx package or specify an unpacked directory path below.
+            </small>
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="form-label">Or Paste Unpacked Extension Directory Path</label>
+            <input type="text" id="extFolderPathInput" class="form-input" placeholder="e.g. C:\Users\Username\Downloads\my-chrome-extension">
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label class="form-label">Target Profiles *</label>
+            <select id="extUploadTargetModeSelect" class="form-select">
+              <option value="all">🌐 All Browser Profiles</option>
+              <option value="selected">☑️ Only Selected Profiles</option>
+            </select>
+          </div>
+
+          <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
+            <button type="button" class="btn btn-outline" id="cancelExtUploadBtn">Cancel</button>
+            <button type="submit" class="btn btn-blue" id="submitExtUploadBtn">
+              🚀 Install Extension Across Profiles
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- SUB-MODAL 5: REAL DEVICES GALLERY & PRESETS MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="devicesModal">
+    <div class="modal-content" style="max-width: 780px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #0f172a, #1e1b4b); color: #fff;">
+        <div class="modal-title" style="color: #fff;">
+          <span>📱</span> Real Devices Library & Attached User-Agents ("Devices")
+        </div>
+        <button class="modal-close" id="closeDevicesModal" style="color: #fff;">&times;</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px; max-height: 75vh; overflow-y: auto;">
+        <!-- Devices Category Filter Tabs -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+          <div class="tabs-group" style="margin: 0;">
+            <button class="tab-btn active" id="devicesTabAll">🌐 All Devices</button>
+            <button class="tab-btn" id="devicesTabMobile">📱 Mobile Smartphones</button>
+            <button class="tab-btn" id="devicesTabDesktop">💻 Desktop Workstations</button>
+          </div>
+          <input type="text" id="devicesSearchInput" class="form-input" style="width: 220px; font-size: 11px;" placeholder="Search devices or user agents...">
+        </div>
+
+        <!-- Devices Grid Cards Container -->
+        <div id="devicesGalleryGrid" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 14px;"></div>
+      </div>
+
+      <div class="modal-footer" style="padding: 12px 20px; background: #f8fafc;">
+        <button type="button" class="btn btn-dark" id="btnCloseDevicesModal">Close Devices</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: ADD / EDIT PROXY MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="addProxyModal">
+    <div class="modal-content" style="max-width: 520px;">
+      <div class="modal-header">
+        <div class="modal-title" id="addProxyModalTitle">
+          <span>🔒</span> Add Proxy to Pool
+        </div>
+        <button class="modal-close" id="closeAddProxyModal">&times;</button>
+      </div>
+
+      <form id="addProxyForm">
+        <input type="hidden" id="editProxyId">
+        <div class="modal-body">
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 10px; margin-bottom: 12px; font-size: 11px; color: var(--text-secondary);">
+            <strong>Quick Paste Format:</strong> Paste string like <code>IP:PORT:USER:PASS</code> or <code>USER:PASS@IP:PORT</code> below to auto-fill.
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Quick Format String Paste</label>
+            <input type="text" id="addProxyFormatInput" class="form-input" placeholder="e.g. 198.23.243.226:6641:gmvobhav:pbcrx4sh7bkn">
+          </div>
+
+          <div class="proxy-grid-2" style="margin-top: 10px;">
+            <div class="form-group">
+              <label class="form-label">Protocol *</label>
+              <select id="addProxyProtocolSelect" class="form-select">
+                <option value="socks5">SOCKS5</option>
+                <option value="http">HTTP</option>
+                <option value="https">HTTPS</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Proxy Address / Host *</label>
+              <input type="text" id="addProxyHostInput" class="form-input" placeholder="e.g. 198.23.243.226" required>
+            </div>
+          </div>
+
+          <div class="proxy-grid-2" style="margin-top: 10px;">
+            <div class="form-group">
+              <label class="form-label">Port *</label>
+              <input type="number" id="addProxyPortInput" class="form-input" placeholder="e.g. 6641" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Username (Optional)</label>
+              <input type="text" id="addProxyUserInput" class="form-input" placeholder="e.g. gmvobhav">
+            </div>
+          </div>
+
+          <div class="proxy-grid-2" style="margin-top: 10px;">
+            <div class="form-group">
+              <label class="form-label">Password (Optional)</label>
+              <input type="password" id="addProxyPassInput" class="form-input" placeholder="e.g. pbcrx4sh7bkn">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Country (Optional)</label>
+              <input type="text" id="addProxyCountryInput" class="form-input" placeholder="e.g. US United States">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="form-label">City (Optional)</label>
+            <input type="text" id="addProxyCityInput" class="form-input" placeholder="e.g. Los Angeles">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelAddProxyBtn">Cancel</button>
+          <button type="submit" class="btn btn-green" id="submitAddProxyBtn">+ Save Proxy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: BULK IMPORT PROXIES MODAL -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="bulkProxyModal">
+    <div class="modal-content" style="max-width: 600px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span>📥</span> Bulk Import Proxies (Multi-Line Format)
+        </div>
+        <button class="modal-close" id="closeBulkProxyModal">&times;</button>
+      </div>
+
+      <form id="bulkProxyForm">
+        <div class="modal-body">
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 8px; padding: 12px; margin-bottom: 12px; font-size: 11px; color: var(--text-secondary); line-height: 1.5;">
+            <strong>Supported Proxy Formats (1 per line):</strong><br>
+            • <code>IP:PORT:USERNAME:PASSWORD</code> (e.g. <code>198.23.243.226:6641:gmvobhav:pbcrx4sh7bkn</code>)<br>
+            • <code>USERNAME:PASSWORD@IP:PORT</code> (e.g. <code>gmvobhav:pbcrx4sh7bkn@198.23.243.226:6641</code>)<br>
+            • <code>IP:PORT</code> (without authentication)
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Default Protocol</label>
+            <select id="bulkProxyProtocolSelect" class="form-select" style="width: 180px;">
+              <option value="socks5">SOCKS5 (Recommended)</option>
+              <option value="http">HTTP</option>
+              <option value="https">HTTPS</option>
+            </select>
+          </div>
+
+          <div class="form-group" style="margin-top: 10px;">
+            <label class="form-label">Paste Proxy Lines Here *</label>
+            <textarea id="bulkProxyTextInput" class="form-input" style="height: 180px; font-family: monospace; font-size: 11px; line-height: 1.4;" placeholder="31.59.20.176:6754:gmvobhav:pbcrx4sh7bkn&#10;45.38.107.97:6014:gmvobhav:pbcrx4sh7bkn&#10;64.137.96.74:6641:gmvobhav:pbcrx4sh7bkn&#10;198.23.243.226:6641:gmvobhav:pbcrx4sh7bkn" required></textarea>
+          </div>
+
+          <div id="bulkProxyParsePreview" style="display: none; font-size: 11px; color: #059669; font-weight: 700; margin-top: 6px;"></div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-outline" id="cancelBulkProxyBtn">Cancel</button>
+          <button type="submit" class="btn btn-blue" id="submitBulkProxyBtn">🚀 Import Proxies into Pool</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: BATCH LAUNCH & SCREEN GRID CONFIGURATION -->
+  <!-- ==================================================== -->
+  <div class="modal-overlay" id="launchBatchModal">
+    <div class="modal-content" style="max-width: 580px;">
+      <div class="modal-header" style="background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%); color: #fff; padding: 16px 20px;">
+        <div class="modal-title" style="color: #fff; font-weight: 800; display: flex; align-items: center; gap: 8px;">
+          <span>🚀</span> Launch Selected Profiles (Screen Grid & Automation)
+        </div>
+        <button class="modal-close" id="closeLaunchBatchModal" style="color: #fff;">&times;</button>
+      </div>
+
+      <form id="launchBatchForm">
+        <div class="modal-body" style="padding: 20px;">
+          <div style="background: #f0f9ff; border: 1px solid #bae6fd; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 12px; color: #0369a1; line-height: 1.5;">
+            <strong>🖥️ Automatic Screen Tiling (5 Columns x 4 Lines):</strong><br>
+            Browsers are arranged in a 5-in-a-row x 4-rows grid (20 browsers standard per screen). If extra profiles are launched (e.g. 25, 30+), grid lines/columns adapt dynamically.
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" style="font-weight: 700;">Number of Profiles to Launch (Multiples of 5)</label>
+            <div style="display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap;" id="launchCountBtnGroup">
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="5">5 (1 line)</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="10">10 (2 lines)</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="15">15 (3 lines)</button>
+              <button type="button" class="btn btn-blue btn-sm btn-launch-count active" data-count="20">20 (4 lines)</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="25">25 (5 lines)</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="30">30 (6 lines)</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="35">35</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="40">40</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="45">45</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="50">50</button>
+              <button type="button" class="btn btn-outline btn-sm btn-launch-count" data-count="all" id="btnLaunchCountAll">All Selected</button>
+            </div>
+            <input type="number" id="batchLaunchCountInput" class="form-input" min="5" step="5" value="20" placeholder="Number of profiles in multiples of 5 (e.g. 5, 10, 15, 20, 25, 30)">
+          </div>
+
+          <div class="proxy-grid-2" style="margin-top: 14px;">
+            <div class="form-group">
+              <label class="form-label" style="font-weight: 700;">Grid Columns (5 in a line)</label>
+              <input type="number" id="gridColsInput" class="form-input" min="1" max="10" value="5">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-weight: 700;">Grid Lines (4 lines standard)</label>
+              <input type="number" id="gridRowsInput" class="form-input" min="1" max="10" value="4">
+            </div>
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="chkLaunchFullSize" style="width: 16px; height: 16px;">
+              <span style="font-size: 13px; font-weight: 600;">Launch Full-Size & Responsive (Disable Grid Tiling)</span>
+            </label>
+            <p style="font-size: 11px; color: var(--text-muted); margin-top: 4px; padding-left: 24px;">
+              Windows will open at standard full resolution and stack, ensuring fully responsive rendering for all profiles instead of shrinking to fit a grid.
+            </p>
+          </div>
+
+          <div class="form-group" style="margin-top: 16px; background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 8px; padding: 14px;">
+            <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; user-select: none;">
+              <input type="checkbox" id="chkAutoScrollClick" checked style="width: 18px; height: 18px; margin-top: 2px; accent-color: #8b5cf6;">
+              <div style="flex: 1;">
+                <strong style="color: #6b21a8; font-size: 13px;">⚡ Real-Time Auto-Scroll & Random Post Clicker</strong>
+                <p style="font-size: 11px; color: #7e22ce; margin-top: 2px; line-height: 1.4;">
+                  Automatically scrolls web pages smoothly in real-time and clicks random posts/links on open profiles continuously.
+                </p>
+                <div style="margin-top: 10px;">
+                  <label class="form-label" style="color: #6b21a8; font-weight: 700;">Select Automation Behavior</label>
+                  <select id="automationProfileSelect" class="form-input" style="width: 100%; margin-top: 4px;">
+                    <option value="Natural Page Visit">Natural Page Visit</option>
+                    <option value="Reader Behavior">Reader Behavior</option>
+                    <option value="Header-to-Footer">Header-to-Footer</option>
+                    <option value="Article Exploration">Article Exploration</option>
+                    <option value="Random Reading Pattern">Random Reading Pattern</option>
+                    <option value="Navigation Exploration">Navigation Exploration</option>
+                    <option value="Slow Visitor">Slow Visitor</option>
+                    <option value="Fast Visitor">Fast Visitor</option>
+                    <option value="Content-Focused">Content-Focused</option>
+                    <option value="Multi-Section Explorer">Multi-Section Explorer</option>
+                    <option value="Back-and-Forth Reader">Back-and-Forth Reader</option>
+                    <option value="Navigation + Content">Navigation + Content</option>
+                    <option value="Long Session">Long Session</option>
+                    <option value="Short Session">Short Session</option>
+                    <option value="Footer Explorer">Footer Explorer</option>
+                    <option value="Internal-Link Discovery">Internal-Link Discovery</option>
+                    <option value="Variable Mouse Movement">Variable Mouse Movement</option>
+                    <option value="Variable Scroll Behavior">Variable Scroll Behavior</option>
+                    <option value="Full Browser Profile Session">Full Browser Profile Session</option>
+                    <option value="Adaptive Human-Like Session">Adaptive Human-Like Session</option>
+                  </select>
+                </div>
+              </div>
+            </label>
+          </div>
+
+          <div class="form-group" style="margin-top: 14px;">
+            <label class="form-label">Startup / Target Website URL</label>
+            <input type="text" id="batchLaunchUrlInput" class="form-input" value="https://whoer.net" placeholder="https://...">
+          </div>
+        </div>
+
+        <div class="modal-footer" style="padding: 14px 20px; background: #f8fafc; border-top: 1px solid var(--border-light); display: flex; justify-content: space-between; align-items: center;">
+          <span style="font-size: 11px; color: var(--text-muted);" id="batchLaunchSummaryText">Ready to launch 20 profiles in a 5x4 grid</span>
+          <div style="display: flex; gap: 10px;">
+            <button type="button" class="btn btn-outline" id="cancelLaunchBatchBtn">Cancel</button>
+            <button type="submit" class="btn btn-green btn-glow" id="submitLaunchBatchBtn">🚀 Launch Profiles Now</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+
+
+  <!-- Application Updater Modal -->
+  <div class="modal-backdrop" id="appUpdateModal">
+    <div class="modal-box" style="max-width: 520px; background: #0f172a; border: 1px solid #334155; color: #f8fafc; border-radius: 12px; overflow: hidden; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.6);">
+      <div class="modal-header" style="background: linear-gradient(135deg, #1e293b, #0f172a); padding: 16px 20px; border-bottom: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+        <div style="display: flex; align-items: center; gap: 10px;">
+          <span style="font-size: 20px;" id="updateModalIcon">🔄</span>
+          <div>
+            <h3 style="margin: 0; font-size: 15px; font-weight: 700; color: #f8fafc;">NANO ADB Software Updater</h3>
+            <p style="margin: 2px 0 0 0; font-size: 11px; color: #94a3b8;" id="updateModalSubtitle">GitHub Release Auto-Update Engine</p>
+          </div>
+        </div>
+        <button type="button" class="modal-close" id="closeUpdateModalX" style="background: none; border: none; color: #94a3b8; font-size: 18px; cursor: pointer;">✕</button>
+      </div>
+
+      <div class="modal-body" style="padding: 20px;">
+        <!-- Version Info Bar -->
+        <div style="background: #1e293b; border: 1px solid #334155; border-radius: 8px; padding: 14px; margin-bottom: 16px; display: flex; align-items: center; justify-content: space-between;">
+          <div>
+            <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Current Version</div>
+            <div style="font-size: 16px; font-weight: 700; color: #38bdf8; margin-top: 2px;" id="uiCurrentVersion">v1.0.0</div>
+          </div>
+          <div style="text-align: right;">
+            <div style="font-size: 11px; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600;">Latest Version</div>
+            <div style="font-size: 16px; font-weight: 700; color: #4ade80; margin-top: 2px;" id="uiLatestVersion">Checking...</div>
+          </div>
+        </div>
+
+        <!-- Status Message Banner -->
+        <div id="updateStatusBanner" style="background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 12px; margin-bottom: 16px; font-size: 13px; font-weight: 600; color: #e2e8f0; display: flex; align-items: center; gap: 8px;">
+          <span id="updateBannerSpinner" style="display: none;">⏳</span>
+          <span id="updateStatusText">Ready to check for updates.</span>
+        </div>
+
+        <!-- Progress Bar Section (Shown during download) -->
+        <div id="updateProgressSection" style="display: none; margin-bottom: 16px;">
+          <div style="display: flex; justify-content: space-between; font-size: 11px; color: #94a3b8; margin-bottom: 6px; font-weight: 600;">
+            <span id="updateProgressLabel">Downloading Update...</span>
+            <span id="updateProgressPercent" style="color: #38bdf8; font-weight: 700;">0%</span>
+          </div>
+          <div style="width: 100%; height: 8px; background: #1e293b; border-radius: 4px; overflow: hidden; border: 1px solid #334155;">
+            <div id="updateProgressBar" style="width: 0%; height: 100%; background: linear-gradient(90deg, #38bdf8, #4ade80); transition: width 0.2s ease;"></div>
+          </div>
+          <div style="font-size: 10px; color: #64748b; margin-top: 4px; text-align: right;" id="updateSpeedText">0 KB/s</div>
+        </div>
+
+        <!-- Release Notes Section -->
+        <div id="updateNotesSection" style="display: none; margin-bottom: 16px;">
+          <div style="font-size: 12px; font-weight: 700; color: #f8fafc; margin-bottom: 6px;">📋 Release Notes:</div>
+          <div id="uiReleaseNotesText" style="font-size: 11px; color: #cbd5e1; background: #020617; border: 1px solid #334155; border-radius: 6px; padding: 10px; max-height: 120px; overflow-y: auto; white-space: pre-wrap; line-height: 1.4;">
+            No release notes provided.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer" style="padding: 12px 20px; background: #1e293b; border-top: 1px solid #334155; display: flex; justify-content: space-between; align-items: center;">
+        <button type="button" class="btn btn-outline btn-sm" id="btnActionCheckUpdate">🔄 Check Updates</button>
+        <div style="display: flex; gap: 8px;">
+          <button type="button" class="btn btn-green btn-glow btn-sm" id="btnActionDownloadUpdate" style="display: none;">📥 Download Update</button>
+          <button type="button" class="btn btn-purple btn-glow btn-sm" id="btnActionInstallUpdate" style="display: none;">🚀 Restart & Install</button>
+          <button type="button" class="btn btn-dark btn-sm" id="btnActionCloseUpdateModal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

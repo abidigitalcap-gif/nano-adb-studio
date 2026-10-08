@@ -1,0 +1,15 @@
+node_modules/
+build_out/
+dist/
+release/
+win-unpacked/
+*.exe
+*.blockmap
+*.zip
+*.log
+logs/
+data_store/
+data/
+.env
+.DS_Store
+Thumbs.db

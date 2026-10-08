@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "Nano ADB Shield Engine",
+  "version": "1.44.0",
+  "description": "Nano ADB Advanced Anti-Detect Fingerprint Protection & Proxy Shield",
+  "permissions": ["scripting", "activeTab", "proxy", "webRequest", "webRequestAuthProvider"],
+  "host_permissions": ["<all_urls>"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["profile_config.js", "content.js"],
+      "run_at": "document_start",
+      "world": "MAIN"
+    }
+  ]
+}

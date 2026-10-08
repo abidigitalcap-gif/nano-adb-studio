@@ -1,0 +1,50 @@
+name: AntiDetect Cloud Proxy Runner
+
+on:
+  workflow_dispatch:
+    inputs:
+      profile_id:
+        description: 'Profile ID connecting to proxy'
+        required: true
+        default: 'prof-cloud-1'
+      tunnel_mode:
+        description: 'Proxy protocol (gost/chisel/socks5)'
+        required: false
+        default: 'socks5'
+
+jobs:
+  cloud-proxy:
+    runs-on: ubuntu-latest
+    name: GitHub Cloud Azure Proxy Runner
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Get Microsoft Azure Datacenter IP Info
+        run: |
+          echo "=== AntiDetect Studio Pro - Cloud Runner Proxy ==="
+          RUNNER_IP=$(curl -s https://api.ipify.org)
+          echo "GitHub Runner Azure Public IP: $RUNNER_IP"
+          curl -s https://ipinfo.io/$RUNNER_IP/json || true
+
+      - name: Setup SOCKS5 / HTTP Proxy Tunnel (gost)
+        run: |
+          echo "Starting AntiDetect Proxy Server on port 1080..."
+          curl -L https://github.com/ginuerzh/gost/releases/download/v2.11.5/gost-linux-amd64-2.11.5.gz | zcat > /tmp/gost
+          chmod +x /tmp/gost
+          
+          # Launch SOCKS5 + HTTP proxy with authentication
+          /tmp/gost -L=socks5://antidetect:cloudproxy2026@:1080 -L=http://antidetect:cloudproxy2026@:8080 &
+          sleep 2
+          
+          echo "Proxy active! Test connection:"
+          curl -x socks5://antidetect:cloudproxy2026@127.0.0.1:1080 https://api.ipify.org
+
+      - name: Keep-Alive Proxy Loop (Active Session)
+        run: |
+          echo "Proxy listening for browser connection..."
+          for i in {1..360}; do
+            sleep 10
+            echo "Heartbeat ping $i/360: Cloud runner proxy healthy."
+          done

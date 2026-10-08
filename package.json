@@ -1,0 +1,72 @@
+{
+  "name": "nano-adb",
+  "version": "1.0.0",
+  "description": "Nano ADB - Anti-Detect Browser Pro with GitHub Cloud Runner Proxy Integration",
+  "main": "main.js",
+  "scripts": {
+    "start": "npx --yes electron main.js",
+    "dev": "npx --yes electron main.js",
+    "app": "npx --yes electron main.js",
+    "start:desktop": "npx --yes electron main.js",
+    "server": "node server.js",
+    "build": "npx electron-builder --win nsis portable",
+    "build:win": "npx electron-builder --win nsis portable",
+    "release": "npx electron-builder --win nsis --publish always"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "electron-updater": "^6.3.9",
+    "express": "^4.19.2",
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "electron": "44.4.3",
+    "electron-builder": "^26.15.3"
+  },
+  "build": {
+    "appId": "com.nano.adb.studio",
+    "productName": "NANO ADB",
+    "asar": true,
+    "directories": {
+      "output": "build_out"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "abidigitalcap-gif",
+        "repo": "nano-adb-studio",
+        "releaseType": "release"
+      }
+    ],
+    "files": [
+      "**/*",
+      "!scratch/**/*",
+      "!dist/**/*"
+    ],
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "x64"
+          ]
+        },
+        {
+          "target": "portable",
+          "arch": [
+            "x64"
+          ]
+        }
+      ]
+    },
+    "portable": {
+      "artifactName": "NANO ADB ${version} Portable.${ext}"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "artifactName": "NANO ADB ${version} Setup.${ext}"
+    }
+  }
+}
