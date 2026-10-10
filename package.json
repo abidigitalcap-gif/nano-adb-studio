@@ -40,8 +40,11 @@
     ],
     "files": [
       "**/*",
+      "!*.zip",
+      "!build_out/**/*",
       "!scratch/**/*",
-      "!dist/**/*"
+      "!dist/**/*",
+      "!data_store/**/*"
     ],
     "win": {
       "target": [

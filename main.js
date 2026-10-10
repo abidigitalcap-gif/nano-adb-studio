@@ -1,6 +1,12 @@
 const { app, BrowserWindow, shell, ipcMain } = require('electron');
 const path = require('path');
-const { autoUpdater } = require('electron-updater');
+// Safely require electron-updater to prevent app crashes if missing/unbundled in portable or custom builds
+let autoUpdater = null;
+try {
+  autoUpdater = require('electron-updater').autoUpdater;
+} catch (err) {
+  console.warn('[Updater] electron-updater module failed to load:', err.message);
+}
 
 // Ensure writable runtime directories use Electron's userData directory when packaged
 if (app) {
@@ -56,61 +62,66 @@ function logUpdaterEvent(level, message, details = null) {
 // ----------------------------------------------------
 // ELECTRON-UPDATER CONFIGURATION & EVENT LISTENERS
 // ----------------------------------------------------
-autoUpdater.autoDownload = false;
-autoUpdater.autoInstallOnAppQuit = true;
+if (autoUpdater) {
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
 
-autoUpdater.on('checking-for-update', () => {
-  updateState.status = 'checking';
-  updateState.error = null;
-  logUpdaterEvent('INFO', 'Update check started', { currentVersion: updateState.currentVersion });
-  broadcastUpdateState();
-});
+  autoUpdater.on('checking-for-update', () => {
+    updateState.status = 'checking';
+    updateState.error = null;
+    logUpdaterEvent('INFO', 'Update check started', { currentVersion: updateState.currentVersion });
+    broadcastUpdateState();
+  });
 
-autoUpdater.on('update-available', (info) => {
-  updateState.status = 'available';
-  updateState.latestVersion = info.version || 'Newer Version';
-  updateState.releaseNotes = typeof info.releaseNotes === 'string' 
-    ? info.releaseNotes 
-    : (Array.isArray(info.releaseNotes) ? info.releaseNotes.map(n => n.note).join('\n') : 'New software release available with performance & security updates.');
-  logUpdaterEvent('INFO', 'Update available', { latestVersion: updateState.latestVersion });
-  broadcastUpdateState();
-});
+  autoUpdater.on('update-available', (info) => {
+    updateState.status = 'available';
+    updateState.latestVersion = info.version || 'Newer Version';
+    updateState.releaseNotes = typeof info.releaseNotes === 'string' 
+      ? info.releaseNotes 
+      : (Array.isArray(info.releaseNotes) ? info.releaseNotes.map(n => n.note).join('\n') : 'New software release available with performance & security updates.');
+    logUpdaterEvent('INFO', 'Update available', { latestVersion: updateState.latestVersion });
+    broadcastUpdateState();
+  });
 
-autoUpdater.on('update-not-available', (info) => {
-  updateState.status = 'not-available';
-  updateState.latestVersion = info ? (info.version || updateState.currentVersion) : updateState.currentVersion;
-  logUpdaterEvent('INFO', 'Update not available. Application is up to date.', { currentVersion: updateState.currentVersion });
-  broadcastUpdateState();
-});
+  autoUpdater.on('update-not-available', (info) => {
+    updateState.status = 'not-available';
+    updateState.latestVersion = info ? (info.version || updateState.currentVersion) : updateState.currentVersion;
+    logUpdaterEvent('INFO', 'Update not available. Application is up to date.', { currentVersion: updateState.currentVersion });
+    broadcastUpdateState();
+  });
 
-autoUpdater.on('download-progress', (progressObj) => {
-  updateState.status = 'downloading';
-  updateState.percent = Math.round(progressObj.percent || 0);
-  updateState.bytesPerSecond = progressObj.bytesPerSecond || 0;
-  updateState.transferred = progressObj.transferred || 0;
-  updateState.total = progressObj.total || 0;
-  logUpdaterEvent('INFO', `Download progress: ${updateState.percent}%`, { speed: `${Math.round(updateState.bytesPerSecond / 1024)} KB/s` });
-  broadcastUpdateState();
-});
+  autoUpdater.on('download-progress', (progressObj) => {
+    updateState.status = 'downloading';
+    updateState.percent = Math.round(progressObj.percent || 0);
+    updateState.bytesPerSecond = progressObj.bytesPerSecond || 0;
+    updateState.transferred = progressObj.transferred || 0;
+    updateState.total = progressObj.total || 0;
+    logUpdaterEvent('INFO', `Download progress: ${updateState.percent}%`, { speed: `${Math.round(updateState.bytesPerSecond / 1024)} KB/s` });
+    broadcastUpdateState();
+  });
 
-autoUpdater.on('update-downloaded', (info) => {
-  updateState.status = 'downloaded';
-  updateState.percent = 100;
-  logUpdaterEvent('INFO', 'Update downloaded successfully and ready to install.', { version: info ? info.version : '' });
-  broadcastUpdateState();
-});
+  autoUpdater.on('update-downloaded', (info) => {
+    updateState.status = 'downloaded';
+    updateState.percent = 100;
+    logUpdaterEvent('INFO', 'Update downloaded successfully and ready to install.', { version: info ? info.version : '' });
+    broadcastUpdateState();
+  });
 
-autoUpdater.on('error', (err) => {
-  updateState.status = 'error';
-  updateState.error = err ? (err.message || String(err)) : 'Unknown updater error';
-  logUpdaterEvent('ERROR', 'Updater encountered an error', { error: updateState.error });
-  broadcastUpdateState();
-});
+  autoUpdater.on('error', (err) => {
+    updateState.status = 'error';
+    updateState.error = err ? (err.message || String(err)) : 'Unknown updater error';
+    logUpdaterEvent('ERROR', 'Updater encountered an error', { error: updateState.error });
+    broadcastUpdateState();
+  });
+}
 
 // ----------------------------------------------------
 // SECURE IPC ENDPOINTS FOR UPDATER
 // ----------------------------------------------------
 ipcMain.handle('update:check', async () => {
+  if (!autoUpdater) {
+    return { error: 'Auto-updater is not available in this build' };
+  }
   try {
     const now = Date.now();
     lastUpdateCheckTime = now;
@@ -126,6 +137,9 @@ ipcMain.handle('update:check', async () => {
 });
 
 ipcMain.handle('update:download', async () => {
+  if (!autoUpdater) {
+    return { error: 'Auto-updater is not available in this build' };
+  }
   try {
     logUpdaterEvent('INFO', 'User requested update download');
     return await autoUpdater.downloadUpdate();
@@ -139,6 +153,9 @@ ipcMain.handle('update:download', async () => {
 });
 
 ipcMain.handle('update:install', async () => {
+  if (!autoUpdater) {
+    return { error: 'Auto-updater is not available in this build' };
+  }
   try {
     logUpdaterEvent('INFO', 'User requested quitAndInstall');
     autoUpdater.quitAndInstall(false, true);
@@ -175,7 +192,7 @@ function createWindow(port) {
 
     // Perform a non-blocking startup check for updates after window loads
     setTimeout(() => {
-      if (Date.now() - lastUpdateCheckTime > UPDATE_CHECK_COOLDOWN_MS) {
+      if (autoUpdater && Date.now() - lastUpdateCheckTime > UPDATE_CHECK_COOLDOWN_MS) {
         lastUpdateCheckTime = Date.now();
         logUpdaterEvent('INFO', 'Executing non-blocking background startup update check');
         autoUpdater.checkForUpdates().catch(e => {
