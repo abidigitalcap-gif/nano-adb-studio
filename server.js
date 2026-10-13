@@ -2670,7 +2670,7 @@ app.post('/api/profiles/:id/launch', async (req, res) => {
         try { fs.unlinkSync(ffLock); } catch (e) {}
       }
 
-      const ffArgs = ['-profile', ffProfileDir, '-new-instance', '-no-remote', targetUrl];
+      const ffArgs = ['-no-remote', '-profile', ffProfileDir, targetUrl];
       child = spawn(firefoxPath, ffArgs, {
         detached: true,
         stdio: 'ignore',
