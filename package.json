@@ -27,6 +27,9 @@
     "appId": "com.nano.adb.studio",
     "productName": "NANO ADB",
     "asar": true,
+    "asarUnpack": [
+      "extension/**/*"
+    ],
     "directories": {
       "output": "build_out"
     },

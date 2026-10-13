@@ -33,8 +33,144 @@ const LOGS_DIR = path.join(USER_DATA_DIR, 'logs');
 const WORKFLOWS_DIR = path.join(USER_DATA_DIR, 'workflows');
 const CLIENT_LOG_FILE = path.join(LOGS_DIR, 'nano_adb_system.log');
 
-// Read-only static assets remain inside __dirname (packaged in app.asar)
-const EXTENSION_PATH = path.join(__dirname, 'extension');
+// Resolve the extension directory across development, packaged app, and unpacked asar paths
+function getResolvedExtensionPath() {
+  const candidates = [
+    // 1. If unpacked by electron-builder asarUnpack
+    path.join(__dirname.replace(/app\.asar$/, 'app.asar.unpacked'), 'extension'),
+    // 2. If located in resources/app.asar.unpacked or resources/extension
+    ...(process.resourcesPath ? [
+      path.join(process.resourcesPath, 'app.asar.unpacked', 'extension'),
+      path.join(process.resourcesPath, 'extension')
+    ] : []),
+    // 3. In app directory (__dirname/extension - may be in app.asar)
+    path.join(__dirname, 'extension')
+  ];
+
+  for (const candidate of candidates) {
+    if (fs.existsSync(candidate)) {
+      return candidate;
+    }
+  }
+  return path.join(__dirname, 'extension');
+}
+
+const EXTENSION_PATH = getResolvedExtensionPath();
+
+/**
+ * Universal directory copy helper that is 100% compatible with Electron ASAR archives.
+ * Native fs.cpSync throws ENOENT when source files are packaged inside app.asar because
+ * libuv copyfile expects physical OS file paths. This helper uses readdirSync and readFileSync
+ * which Electron transparently supports for ASAR archives.
+ */
+function copyDirSyncSafe(src, dest) {
+  if (!fs.existsSync(src)) return false;
+  if (!fs.existsSync(dest)) {
+    try {
+      fs.mkdirSync(dest, { recursive: true });
+    } catch (e) {}
+  }
+
+  // Fast path: If not in an ASAR archive, try native fs.cpSync
+  if (!src.includes('.asar')) {
+    try {
+      fs.cpSync(src, dest, { recursive: true });
+      return true;
+    } catch (err) {
+      // Fall through to manual recursive copy
+    }
+  }
+
+  try {
+    const entries = fs.readdirSync(src, { withFileTypes: true });
+    for (const entry of entries) {
+      const srcChild = path.join(src, entry.name);
+      const destChild = path.join(dest, entry.name);
+      if (entry.isDirectory()) {
+        copyDirSyncSafe(srcChild, destChild);
+      } else {
+        const data = fs.readFileSync(srcChild);
+        fs.writeFileSync(destChild, data);
+      }
+    }
+    return true;
+  } catch (err) {
+    console.error(`[copyDirSyncSafe] Error copying from "${src}" to "${dest}":`, err.message);
+    return false;
+  }
+}
+
+/**
+ * Ensures profile extension directory has all required extension files ready on physical disk.
+ * Native browser instances (Chrome/Edge/Chromium) cannot read extension files from inside app.asar,
+ * so they must be copied to the profile directory on disk.
+ */
+function ensureProfileExtension(profileExtensionDir) {
+  if (!fs.existsSync(profileExtensionDir)) {
+    fs.mkdirSync(profileExtensionDir, { recursive: true });
+  }
+
+  const resolvedExt = getResolvedExtensionPath();
+  if (fs.existsSync(resolvedExt)) {
+    copyDirSyncSafe(resolvedExt, profileExtensionDir);
+  }
+
+  // Ensure manifest.json exists
+  const manifestPath = path.join(profileExtensionDir, 'manifest.json');
+  if (!fs.existsSync(manifestPath)) {
+    const defaultManifest = {
+      manifest_version: 3,
+      name: "Nano ADB Shield Engine",
+      version: "1.44.0",
+      description: "Nano ADB Advanced Anti-Detect Fingerprint Protection & Proxy Shield",
+      permissions: ["scripting", "activeTab", "proxy", "webRequest", "webRequestAuthProvider"],
+      host_permissions: ["<all_urls>"],
+      background: {
+        service_worker: "background.js"
+      },
+      content_scripts: [
+        {
+          matches: ["<all_urls>"],
+          js: ["profile_config.js", "content.js"],
+          run_at: "document_start",
+          world: "MAIN"
+        }
+      ]
+    };
+    fs.writeFileSync(manifestPath, JSON.stringify(defaultManifest, null, 2));
+  }
+
+  // Ensure background.js exists
+  const bgPath = path.join(profileExtensionDir, 'background.js');
+  if (!fs.existsSync(bgPath)) {
+    try {
+      const srcBg = path.join(resolvedExt, 'background.js');
+      if (fs.existsSync(srcBg)) {
+        fs.writeFileSync(bgPath, fs.readFileSync(srcBg));
+      } else {
+        fs.writeFileSync(bgPath, '// Nano ADB Shield Background Service Worker\nconsole.log("[Nano ADB] Background worker active");\n');
+      }
+    } catch (e) {
+      fs.writeFileSync(bgPath, '// Nano ADB Shield Background Service Worker\n');
+    }
+  }
+
+  // Ensure content.js exists
+  const contentPath = path.join(profileExtensionDir, 'content.js');
+  if (!fs.existsSync(contentPath)) {
+    try {
+      const srcContent = path.join(resolvedExt, 'content.js');
+      if (fs.existsSync(srcContent)) {
+        fs.writeFileSync(contentPath, fs.readFileSync(srcContent));
+      } else {
+        fs.writeFileSync(contentPath, '// Nano ADB Shield Content Script\n');
+      }
+    } catch (e) {
+      fs.writeFileSync(contentPath, '// Nano ADB Shield Content Script\n');
+    }
+  }
+}
+
 
 // Ensure writable runtime directories exist
 [DATA_DIR, PROFILES_STORE, LOGS_DIR, WORKFLOWS_DIR].forEach(dir => {
@@ -2153,7 +2289,7 @@ app.post('/api/profiles/batch-clone', (req, res) => {
         const sourceDir = path.join(PROFILES_STORE, target.id);
         const clonedDir = path.join(PROFILES_STORE, clonedId);
         if (fs.existsSync(sourceDir)) {
-          try { fs.cpSync(sourceDir, clonedDir, { recursive: true }); } catch (e) {}
+          try { copyDirSyncSafe(sourceDir, clonedDir); } catch (e) {}
         }
 
         const clone = {
@@ -2199,7 +2335,7 @@ app.post('/api/profiles/:id/clone', (req, res) => {
   const sourceUserDataDir = path.join(PROFILES_STORE, target.id);
   const clonedUserDataDir = path.join(PROFILES_STORE, clonedId);
   if (fs.existsSync(sourceUserDataDir)) {
-    try { fs.cpSync(sourceUserDataDir, clonedUserDataDir, { recursive: true }); } catch (e) {}
+    try { copyDirSyncSafe(sourceUserDataDir, clonedUserDataDir); } catch (e) {}
   }
 
   const cloned = {
@@ -2238,12 +2374,7 @@ app.post('/api/profiles/copy-extension-all', (req, res) => {
         fs.mkdirSync(profileUserDataDir, { recursive: true });
       }
 
-      const profileExtensionDir = path.join(profileUserDataDir, 'extension');
-      if (!fs.existsSync(profileExtensionDir)) {
-        fs.mkdirSync(profileExtensionDir, { recursive: true });
-      }
-
-      fs.cpSync(EXTENSION_PATH, profileExtensionDir, { recursive: true });
+      ensureProfileExtension(profileExtensionDir);
 
       const screenRes = p.screenResolution || '1920x1080';
       const [screenWidth, screenHeight] = screenRes.split('x').map(n => parseInt(n) || 1920);
@@ -2539,8 +2670,7 @@ app.post('/api/profiles/:id/launch', async (req, res) => {
 
       // Create profile-isolated extension copy
       const profileExtensionDir = path.join(profileUserDataDir, 'extension');
-      if (!fs.existsSync(profileExtensionDir)) fs.mkdirSync(profileExtensionDir, { recursive: true });
-      if (fs.existsSync(EXTENSION_PATH)) fs.cpSync(EXTENSION_PATH, profileExtensionDir, { recursive: true });
+      ensureProfileExtension(profileExtensionDir);
 
       const screenRes = profile.screenResolution || '1920x1080';
       const [screenWidth, screenHeight] = screenRes.split('x').map(n => parseInt(n) || 1920);
@@ -2809,10 +2939,7 @@ app.post('/api/extensions/clone-from-profile', (req, res) => {
       const targetUserDataDir = path.join(PROFILES_STORE, p.id);
       if (!fs.existsSync(targetUserDataDir)) fs.mkdirSync(targetUserDataDir, { recursive: true });
 
-      const targetExtensionDir = path.join(targetUserDataDir, 'extension');
-      if (!fs.existsSync(targetExtensionDir)) fs.mkdirSync(targetExtensionDir, { recursive: true });
-
-      fs.cpSync(sourceExtensionDir, targetExtensionDir, { recursive: true });
+      copyDirSyncSafe(sourceExtensionDir, targetExtensionDir);
 
       const screenRes = p.screenResolution || '1920x1080';
       const [screenWidth, screenHeight] = screenRes.split('x').map(n => parseInt(n) || 1920);
@@ -2896,10 +3023,7 @@ app.post('/api/extensions/upload-and-install', (req, res) => {
       const targetUserDataDir = path.join(PROFILES_STORE, p.id);
       if (!fs.existsSync(targetUserDataDir)) fs.mkdirSync(targetUserDataDir, { recursive: true });
 
-      const targetExtensionDir = path.join(targetUserDataDir, 'extension');
-      if (!fs.existsSync(targetExtensionDir)) fs.mkdirSync(targetExtensionDir, { recursive: true });
-
-      fs.cpSync(sourceExtPath, targetExtensionDir, { recursive: true });
+      copyDirSyncSafe(sourceExtPath, targetExtensionDir);
 
       const screenRes = p.screenResolution || '1920x1080';
       const [screenWidth, screenHeight] = screenRes.split('x').map(n => parseInt(n) || 1920);

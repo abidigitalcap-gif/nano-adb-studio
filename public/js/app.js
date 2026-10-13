@@ -1597,22 +1597,29 @@ document.addEventListener('DOMContentLoaded', () => {
       'duplicatedWorkflowModal',
       'singleAccountModal',
       'devicesModal',
-      'launchBatchModal'
+      'launchBatchModal',
+      'appUpdateModal'
     ];
 
     modalIds.forEach(id => {
       const modalEl = document.getElementById(id);
       if (modalEl) {
         modalEl.addEventListener('click', (e) => {
-          if (e.target === modalEl) modalEl.classList.remove('active');
+          if (e.target === modalEl) {
+            modalEl.classList.remove('active');
+            if (id === 'appUpdateModal') modalEl.style.display = 'none';
+          }
         });
       }
     });
 
     document.querySelectorAll('.modal-close').forEach(btn => {
       btn.addEventListener('click', () => {
-        const modalEl = btn.closest('.modal-overlay');
-        if (modalEl) modalEl.classList.remove('active');
+        const modalEl = btn.closest('.modal-overlay') || btn.closest('.modal-backdrop');
+        if (modalEl) {
+          modalEl.classList.remove('active');
+          if (modalEl.id === 'appUpdateModal') modalEl.style.display = 'none';
+        }
       });
     });
 
@@ -4034,11 +4041,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const uiReleaseNotesText = document.getElementById('uiReleaseNotesText');
 
   function openAppUpdateModal() {
-    if (appUpdateModal) appUpdateModal.classList.add('active');
+    if (appUpdateModal) {
+      appUpdateModal.style.display = 'flex';
+      appUpdateModal.classList.add('active');
+    }
   }
 
   function closeAppUpdateModal() {
-    if (appUpdateModal) appUpdateModal.classList.remove('active');
+    if (appUpdateModal) {
+      appUpdateModal.classList.remove('active');
+      appUpdateModal.style.display = 'none';
+    }
   }
 
   function renderUpdateState(state) {
@@ -4168,8 +4181,35 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  if (closeUpdateModalX) closeUpdateModalX.addEventListener('click', closeAppUpdateModal);
-  if (btnActionCloseUpdateModal) btnActionCloseUpdateModal.addEventListener('click', closeAppUpdateModal);
+  if (closeUpdateModalX) {
+    closeUpdateModalX.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeAppUpdateModal();
+    });
+  }
+
+  if (btnActionCloseUpdateModal) {
+    btnActionCloseUpdateModal.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      closeAppUpdateModal();
+    });
+  }
+
+  if (appUpdateModal) {
+    appUpdateModal.addEventListener('click', (e) => {
+      if (e.target === appUpdateModal) {
+        closeAppUpdateModal();
+      }
+    });
+  }
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && appUpdateModal && (appUpdateModal.classList.contains('active') || appUpdateModal.style.display === 'flex')) {
+      closeAppUpdateModal();
+    }
+  });
 
   // Start initialization
   init();
