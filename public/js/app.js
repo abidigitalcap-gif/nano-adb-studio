@@ -320,9 +320,15 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="prof-actions-col">
-          <button class="btn btn-green launch-btn" data-id="${p.id}">
-            ▶ Launch
-          </button>
+          ${isRunning ? `
+            <button class="btn btn-red stop-btn" data-id="${p.id}" style="background: #ef4444; border-color: #dc2626; color: #fff;">
+              ⏹ Stop
+            </button>
+          ` : `
+            <button class="btn btn-green launch-btn" data-id="${p.id}">
+              ▶ Launch
+            </button>
+          `}
           <button class="icon-btn-action single-test-btn" data-id="${p.id}" title="Test Single Profile Connection IP (What IP it connects to)">⚡</button>
           <button class="icon-btn-action magic-wand-btn" data-id="${p.id}" title="Randomize Fingerprint (Magic Wand)">🪄</button>
           <button class="icon-btn-action edit-btn" data-id="${p.id}" title="Edit Profile">✏️</button>
@@ -519,6 +525,27 @@ document.addEventListener('DOMContentLoaded', () => {
           console.error('[Launch Fetch Exception]', err);
           notify(`Connection Error: Failed to communicate with engine backend (${err.message}).`, 'error');
           btn.textContent = '▶ Launch';
+        } finally {
+          btn.disabled = false;
+        }
+      });
+    });
+
+    // Stop Button
+    document.querySelectorAll('.stop-btn').forEach(btn => {
+      btn.addEventListener('click', async (e) => {
+        e.stopPropagation();
+        const id = btn.dataset.id;
+        btn.disabled = true;
+        btn.textContent = '⏳ Stopping...';
+        try {
+          const res = await fetch(`/api/profiles/${id}/stop`, { method: 'POST' });
+          const data = await res.json();
+          notify(`Profile stopped.`, 'info');
+          await fetchProfiles();
+        } catch (err) {
+          console.error(err);
+          notify('Error stopping profile: ' + err.message, 'error');
         } finally {
           btn.disabled = false;
         }

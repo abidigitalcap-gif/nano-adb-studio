@@ -2540,13 +2540,29 @@ app.post('/api/profiles/:id/launch', async (req, res) => {
       return res.status(404).json({ success: false, message: 'Profile not found' });
     }
 
-    // Check if profile is already running
+    // Check if profile is genuinely active and running
     if (activeProcesses.has(profile.id)) {
-      return res.json({
-        success: true,
-        message: `Profile ${profile.name} is already active!`,
-        alreadyRunning: true
-      });
+      const existingProc = activeProcesses.get(profile.id);
+      let isActuallyAlive = false;
+      try {
+        if (existingProc && existingProc.pid) {
+          process.kill(existingProc.pid, 0); // Throws if process does not exist
+          isActuallyAlive = true;
+        }
+      } catch (e) {
+        isActuallyAlive = false;
+      }
+
+      if (isActuallyAlive) {
+        return res.json({
+          success: true,
+          message: `Profile "${profile.name}" is already active and running!`,
+          alreadyRunning: true
+        });
+      } else {
+        // Clean up dead process entry
+        activeProcesses.delete(profile.id);
+      }
     }
 
     // Validate GitHub Cloud runner requirements if proxyType is github_cloud
@@ -2648,7 +2664,13 @@ app.post('/api/profiles/:id/launch', async (req, res) => {
 
       fs.writeFileSync(path.join(ffProfileDir, 'user.js'), userJsLines.join('\n'));
 
-      const ffArgs = ['-profile', ffProfileDir, '-no-remote', targetUrl];
+      // Clear stale Firefox parent.lock to prevent hung background startup
+      const ffLock = path.join(ffProfileDir, 'parent.lock');
+      if (fs.existsSync(ffLock)) {
+        try { fs.unlinkSync(ffLock); } catch (e) {}
+      }
+
+      const ffArgs = ['-profile', ffProfileDir, '-new-instance', '-no-remote', targetUrl];
       child = spawn(firefoxPath, ffArgs, {
         detached: true,
         stdio: 'ignore',
@@ -2666,6 +2688,12 @@ app.post('/api/profiles/:id/launch', async (req, res) => {
           success: false,
           message: 'Google Chrome or Microsoft Edge was not found on this system.'
         });
+      }
+
+      // Clear stale Chromium singleton lock if present
+      const chromeLock = path.join(profileUserDataDir, 'SingletonLock');
+      if (fs.existsSync(chromeLock)) {
+        try { fs.unlinkSync(chromeLock); } catch (e) {}
       }
 
       // Create profile-isolated extension copy
@@ -2877,6 +2905,40 @@ if (typeof window !== 'undefined') {
       errorDetail: err.stack
     });
   }
+});
+
+// Stop a single running profile process
+app.post('/api/profiles/:id/stop', (req, res) => {
+  const { id } = req.params;
+  const proc = activeProcesses.get(id);
+  if (proc) {
+    try {
+      if (process.platform === 'win32') {
+        execSync(`taskkill /PID ${proc.pid} /T /F`, { stdio: 'ignore' });
+      } else {
+        process.kill(proc.pid, 'SIGKILL');
+      }
+    } catch (e) {}
+    activeProcesses.delete(id);
+  }
+
+  const profiles = readJSON(PROFILES_FILE, []);
+  const profile = profiles.find(p => p.id === id);
+  if (profile) {
+    profile.status = 'idle';
+    writeJSON(PROFILES_FILE, profiles);
+    try {
+      cleanProfileCache(profile);
+      const profileUserDataDir = getProfileStorageDir(profile);
+      const ffLock = path.join(profileUserDataDir, 'firefox_profile', 'parent.lock');
+      if (fs.existsSync(ffLock)) fs.unlinkSync(ffLock);
+      const chromeLock = path.join(profileUserDataDir, 'SingletonLock');
+      if (fs.existsSync(chromeLock)) fs.unlinkSync(chromeLock);
+    } catch (e) {}
+    logAuditEvent('PROFILE', 'Stop Profile', profile.name, `Stopped active process for "${profile.name}"`, 'info');
+  }
+
+  res.json({ success: true, message: `Profile stopped successfully.` });
 });
 
 // Batch delete profiles
