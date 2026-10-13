@@ -14,9 +14,10 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Determine User Data Directory (Writable Path for ASAR / Portable / Electron / Standalone)
+const defaultAppDataDir = process.env.APPDATA ? path.join(process.env.APPDATA, 'nano-adb') : '';
 const USER_DATA_DIR = process.env.NANO_USER_DATA_DIR || 
   (process.env.PORTABLE_EXECUTABLE_DIR ? path.join(process.env.PORTABLE_EXECUTABLE_DIR, 'nano_adb_data') :
-  path.join(__dirname, 'data_store'));
+  (defaultAppDataDir && fs.existsSync(defaultAppDataDir) ? defaultAppDataDir : path.join(__dirname, 'data_store')));
 
 const DATA_DIR = path.join(USER_DATA_DIR, 'data');
 const PROFILES_FILE = path.join(DATA_DIR, 'profiles.json');

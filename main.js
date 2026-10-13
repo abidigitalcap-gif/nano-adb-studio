@@ -11,6 +11,7 @@ try {
 // Ensure writable runtime directories use Electron's userData directory when packaged
 if (app) {
   try {
+    app.setName('nano-adb');
     process.env.NANO_USER_DATA_DIR = app.getPath('userData');
   } catch (e) {}
 }
